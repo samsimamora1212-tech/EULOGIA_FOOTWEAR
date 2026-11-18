@@ -1,0 +1,3613 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EULOGIA FOOTWEAR — Katalog Resmi Sneakers & Casual Collection</title>
+
+  <!-- Google Fonts: Space Grotesk & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            charcoal: {
+              950: '#090d16',
+              900: '#0f172a',
+              800: '#1e293b',
+              700: '#334155',
+            },
+            gold: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Firebase SDK Compat v10 -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <style>
+    /* Custom scrollbar & subtle utility styles */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fadeSlideUp 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- ==================== STICKY HEADER & NAVIGATION ==================== -->
+  <header class="sticky top-0 z-40 bg-charcoal-900/95 backdrop-blur-md border-b border-slate-800 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-2">
+        <!-- Brand Logo -->
+        <a href="#" onclick="resetAllFilters(); return false;" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-charcoal-900 font-display font-extrabold text-base sm:text-lg tracking-tighter shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+            EF
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-bold text-base sm:text-xl tracking-tight text-white">EULOGIA FOOTWEAR</span>
+              <span class="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">OFFICIAL</span>
+            </div>
+            <p class="text-[10px] sm:text-xs text-slate-400 leading-tight">Sneakers &amp; Casual Collection</p>
+          </div>
+        </a>
+
+        <!-- Action Buttons (Responsive for Mobile & Desktop) -->
+        <div class="flex items-center gap-1.5 sm:gap-2.5">
+          <!-- Syarat & Ketentuan Button (Always visible on Mobile & Desktop) -->
+          <button
+            type="button"
+            onclick="openTermsModal('cara-pesan')"
+            class="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 hover:border-amber-500/50 text-xs sm:text-sm font-semibold transition-all active:scale-95"
+            title="Baca Syarat & Ketentuan Order, Tukar Size, & Retur"
+          >
+            <i class="fa-solid fa-file-shield text-xs sm:text-sm"></i>
+            <span class="hidden sm:inline">Syarat &amp; Ketentuan</span>
+            <span class="inline sm:hidden">S&amp;K</span>
+          </button>
+
+          <!-- Social & Marketplace Links (Desktop & Tablet) -->
+          <a
+            id="header-tiktok-link"
+            href="https://www.tiktok.com/@eulogiashoes"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition-colors"
+            title="TikTok EULOGIA FOOTWEAR"
+          >
+            <i class="fa-brands fa-tiktok text-amber-400"></i>
+            <span>TikTok</span>
+          </a>
+
+          <a
+            id="header-shopee-link"
+            href="https://shopee.co.id/eulogiashoes"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-medium transition-colors"
+            title="Shopee EULOGIA FOOTWEAR"
+          >
+            <i class="fa-solid fa-bag-shopping text-orange-400"></i>
+            <span>Shopee</span>
+          </a>
+
+          <!-- Dropdown Kontak CS WhatsApp 1 & 2 (Rapi untuk HP & Desktop) -->
+          <div class="relative" id="header-wa-dropdown-wrapper">
+            <button
+              type="button"
+              onclick="toggleHeaderWaMenu(event)"
+              class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 text-xs sm:text-sm font-semibold transition-colors"
+              title="Pilih CS WhatsApp EULOGIA FOOTWEAR"
+            >
+              <i class="fa-brands fa-whatsapp text-base"></i>
+              <span class="hidden md:inline">CS WhatsApp</span>
+              <i class="fa-solid fa-chevron-down text-[10px] opacity-80"></i>
+            </button>
+
+            <div
+              id="header-wa-menu"
+              class="hidden absolute right-0 mt-2 w-60 rounded-2xl bg-charcoal-900 border border-slate-700 shadow-2xl p-2 space-y-1 z-50"
+            >
+              <p class="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Hubungi Admin CS</p>
+              <a
+                id="header-wa-link-1"
+                href="https://wa.me/6282114710891?text=Halo%20Admin%201%20EULOGIA%20FOOTWEAR%2C%20saya%20ingin%20tanya%20katalog%20sepatu."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-200 transition-colors"
+              >
+                <div class="flex items-center gap-2">
+                  <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                  </span>
+                  <div>
+                    <div class="text-xs font-bold text-white">Admin CS 1</div>
+                    <div id="header-wa-text-1" class="text-[11px] text-emerald-400 font-medium">+62 821-1471-0891</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-500"></i>
+              </a>
+              <a
+                id="header-wa-link-2"
+                href="https://wa.me/6281289217188?text=Halo%20Admin%202%20EULOGIA%20FOOTWEAR%2C%20saya%20ingin%20tanya%20katalog%20sepatu."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-200 transition-colors"
+              >
+                <div class="flex items-center gap-2">
+                  <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                  </span>
+                  <div>
+                    <div class="text-xs font-bold text-white">Admin CS 2</div>
+                    <div id="header-wa-text-2" class="text-[11px] text-emerald-400 font-medium">+62 812-8921-7188</div>
+                  </div>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-500"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Shopping Cart Button -->
+          <button
+            type="button"
+            onclick="toggleCartDrawer(true)"
+            class="relative inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-charcoal-950 font-bold text-xs sm:text-sm shadow-md shadow-amber-500/20 transition-all active:scale-95"
+            aria-label="Buka Keranjang Belanja"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="hidden sm:inline">Keranjang</span>
+            <span
+              id="cart-badge"
+              class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-charcoal-900 text-amber-400 text-[11px] font-extrabold"
+            >0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== ADMIN TOOLBAR (HIDDEN BY DEFAULT) ==================== -->
+  <div id="admin-toolbar" class="hidden bg-amber-500 text-charcoal-950 border-b border-amber-600 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 text-xs sm:text-sm font-extrabold">
+        <span class="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-charcoal-900 text-amber-400">
+          <i class="fa-solid fa-user-shield text-xs"></i>
+        </span>
+        <span>MODE ADMIN AKTIF</span>
+        <span id="db-mode-badge" class="px-2 py-0.5 rounded-full bg-charcoal-900/15 text-[11px] font-bold">Penyimpanan Lokal</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onclick="openProductFormModal()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-900 hover:bg-charcoal-800 text-white text-xs font-bold transition-colors"
+        >
+          <i class="fa-solid fa-plus text-amber-400"></i>
+          <span>Tambah Sepatu</span>
+        </button>
+        <button
+          type="button"
+          onclick="openSettingsModal('akun-admin')"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-charcoal-900 hover:bg-charcoal-800 text-emerald-400 text-xs font-bold transition-colors"
+        >
+          <i class="fa-solid fa-user-lock"></i>
+          <span>Akun Admin</span>
+        </button>
+        <button
+          type="button"
+          onclick="confirmResetCatalog()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/80 hover:bg-white text-charcoal-900 text-xs font-bold transition-colors"
+        >
+          <i class="fa-solid fa-rotate-left"></i>
+          <span>Reset 36 Data</span>
+        </button>
+        <button
+          type="button"
+          onclick="logoutAdmin()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition-colors"
+        >
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Keluar Admin</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HERO BANNER ==================== -->
+  <section class="relative overflow-hidden bg-charcoal-900 text-white border-b border-slate-800">
+    <!-- Decorative Background Gradients -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-14">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Left Content -->
+        <div class="lg:col-span-8 space-y-4 sm:space-y-5">
+          <div class="inline-flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Katalog Resmi Ready Stock
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+              <i class="fa-solid fa-shield-halved"></i>
+              Garansi Tukar Size &amp; Video Unboxing
+            </span>
+          </div>
+
+          <h1 class="font-display text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+            Koleksi Sneakers &amp; Casual Pilihan <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">EULOGIA FOOTWEAR</span>
+          </h1>
+
+          <p class="text-slate-300 text-sm sm:text-base max-w-2xl leading-relaxed">
+            Temukan berbagai model sneakers, running, slip-on, hingga boots pria &amp; wanita dengan kualitas terbaik. Pilih model favoritmu, cek panduan ukuran, dan pesan langsung via WhatsApp Admin.
+          </p>
+
+          <!-- Action CTA Row (CS 1, CS 2, Aturan Order, TikTok, Shopee) -->
+          <div class="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-1">
+            <a
+              id="hero-wa-link-1"
+              href="https://wa.me/6282114710891?text=Halo%20Admin%201%20EULOGIA%20FOOTWEAR%2C%20saya%20ingin%20konsultasi%20pesanan%20sepatu."
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-charcoal-950 font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition-all active:scale-95"
+            >
+              <i class="fa-brands fa-whatsapp text-base sm:text-lg"></i>
+              <span id="hero-wa-label-1">CS 1: +62 821-1471-0891</span>
+            </a>
+
+            <a
+              id="hero-wa-link-2"
+              href="https://wa.me/6281289217188?text=Halo%20Admin%202%20EULOGIA%20FOOTWEAR%2C%20saya%20ingin%20konsultasi%20pesanan%20sepatu."
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 font-bold text-xs sm:text-sm transition-all active:scale-95"
+            >
+              <i class="fa-brands fa-whatsapp text-base sm:text-lg text-emerald-400"></i>
+              <span id="hero-wa-label-2">CS 2: +62 812-8921-7188</span>
+            </a>
+
+            <button
+              type="button"
+              onclick="openTermsModal('cara-pesan')"
+              class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/40 font-bold text-xs sm:text-sm transition-all active:scale-95"
+            >
+              <i class="fa-solid fa-book-open"></i>
+              <span>Baca Aturan Order &amp; Retur</span>
+            </button>
+
+            <a
+              id="hero-tiktok-link"
+              href="https://www.tiktok.com/@eulogiashoes"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold text-xs sm:text-sm transition-all"
+            >
+              <i class="fa-brands fa-tiktok text-amber-400"></i>
+              <span>TikTok</span>
+            </a>
+
+            <a
+              id="hero-shopee-link"
+              href="https://shopee.co.id/eulogiashoes"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold text-xs sm:text-sm transition-all"
+            >
+              <i class="fa-solid fa-store text-orange-400"></i>
+              <span>Shopee</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Stats & Quick Policy Card -->
+        <div class="lg:col-span-4">
+          <div class="bg-slate-800/70 backdrop-blur-sm border border-slate-700/80 rounded-2xl p-4 sm:p-5 space-y-4">
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="bg-charcoal-900/80 rounded-xl p-3 border border-slate-700/60">
+                <p id="stat-total-models" class="font-display text-xl sm:text-2xl font-bold text-amber-400">36</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Model Sepatu</p>
+              </div>
+              <div class="bg-charcoal-900/80 rounded-xl p-3 border border-slate-700/60">
+                <p id="stat-total-stock" class="font-display text-xl sm:text-2xl font-bold text-emerald-400">413</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Total Pasang</p>
+              </div>
+              <div class="bg-charcoal-900/80 rounded-xl p-3 border border-slate-700/60">
+                <p class="font-display text-xl sm:text-2xl font-bold text-white">15.00</p>
+                <p class="text-[11px] text-slate-400 mt-0.5">Cut-Off Kirim</p>
+              </div>
+            </div>
+
+            <div class="space-y-2 text-xs text-slate-300 border-t border-slate-700/80 pt-3">
+              <div class="flex items-start gap-2">
+                <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+                <span>Tukar ukuran maks. <strong>3 hari</strong> setelah barang diterima.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <i class="fa-solid fa-video text-amber-400 mt-0.5"></i>
+                <span>Wajib <strong>Video Unboxing tanpa jeda</strong> untuk klaim retur/cacat.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <i class="fa-solid fa-clock text-sky-400 mt-0.5"></i>
+                <span>Booking stok berlaku <strong>1x24 jam</strong> setelah konfirmasi Admin.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SEARCH & SMART FILTER BAR ==================== -->
+  <section class="sticky top-16 sm:top-20 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-2.5 sm:gap-3 items-center">
+        <!-- Real-Time Search Input -->
+        <div class="md:col-span-5 relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input
+            type="text"
+            id="search-input"
+            oninput="applyFilters()"
+            placeholder="Cari nama sepatu, SKU (NMR-001), atau warna..."
+            class="w-full pl-10 pr-9 py-2.5 rounded-xl bg-slate-100 border border-slate-200 focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm text-slate-900 placeholder-slate-400 outline-none transition-all"
+          />
+          <button
+            type="button"
+            id="clear-search-btn"
+            onclick="clearSearch()"
+            class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+            title="Hapus pencarian"
+          >
+            <i class="fa-solid fa-circle-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="md:col-span-7 grid grid-cols-3 gap-2">
+          <!-- Category Filter -->
+          <select
+            id="filter-category"
+            onchange="applyFilters()"
+            class="w-full px-2.5 sm:px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 focus:bg-white focus:border-amber-500 text-xs sm:text-sm font-medium text-slate-800 outline-none cursor-pointer"
+          >
+            <option value="ALL">Kategori: Semua</option>
+            <option value="PRIA">Kategori: Pria</option>
+            <option value="WANITA">Kategori: Wanita</option>
+          </select>
+
+          <!-- Stock Status Filter -->
+          <select
+            id="filter-status"
+            onchange="applyFilters()"
+            class="w-full px-2.5 sm:px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 focus:bg-white focus:border-amber-500 text-xs sm:text-sm font-medium text-slate-800 outline-none cursor-pointer"
+          >
+            <option value="ALL">Stok: Semua</option>
+            <option value="TERSEDIA">Tersedia</option>
+            <option value="MENIPIS">Menipis</option>
+            <option value="HABIS">Habis</option>
+          </select>
+
+          <!-- Price Range Filter -->
+          <select
+            id="filter-price"
+            onchange="applyFilters()"
+            class="w-full px-2.5 sm:px-3 py-2.5 rounded-xl bg-slate-100 border border-slate-200 focus:bg-white focus:border-amber-500 text-xs sm:text-sm font-medium text-slate-800 outline-none cursor-pointer"
+          >
+            <option value="ALL">Harga: Semua</option>
+            <option value="ASK">Tanya Admin</option>
+            <option value="UNDER_200">&lt; Rp 200.000</option>
+            <option value="200_350">Rp 200rb - 350rb</option>
+            <option value="ABOVE_350">&gt; Rp 350.000</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Result Counter & Active Filter Chips -->
+      <div class="flex items-center justify-between mt-2.5 pt-2 border-t border-slate-100 text-xs text-slate-500">
+        <div>
+          Menampilkan <strong id="visible-count" class="text-slate-900">36</strong> dari <strong id="total-count" class="text-slate-900">36</strong> produk sepatu
+        </div>
+        <button
+          type="button"
+          id="reset-filter-btn"
+          onclick="resetAllFilters()"
+          class="hidden text-amber-600 hover:text-amber-700 font-semibold items-center gap-1"
+        >
+          <i class="fa-solid fa-filter-circle-xmark"></i>
+          <span>Reset Filter</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN PRODUCT CATALOG GRID ==================== -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+      <div class="w-16 h-16 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4 text-2xl">
+        <i class="fa-solid fa-shoe-prints"></i>
+      </div>
+      <h3 class="font-display text-lg font-bold text-slate-900">Sepatu Tidak Ditemukan</h3>
+      <p class="text-sm text-slate-500 max-w-md mx-auto mt-1">
+        Coba ubah kata kunci pencarian (misal: nama model, SKU NMR-001, atau warna) atau atur ulang filter kategori dan stok.
+      </p>
+      <button
+        type="button"
+        onclick="resetAllFilters()"
+        class="mt-4 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-white text-xs sm:text-sm font-semibold transition-colors"
+      >
+        <i class="fa-solid fa-rotate-left"></i>
+        <span>Tampilkan Semua Sepatu</span>
+      </button>
+    </div>
+
+    <!-- Product Grid (2 cols on mobile, 3 on tablet, 4 on desktop) -->
+    <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
+      <!-- Cards injected dynamically by JS -->
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-charcoal-900 text-slate-300 border-t border-slate-800 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+        <!-- Brand Info -->
+        <div class="md:col-span-5 space-y-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-charcoal-950 font-display font-extrabold text-sm">
+              EF
+            </div>
+            <span class="font-display font-bold text-lg text-white">EULOGIA FOOTWEAR</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            Pusat koleksi sepatu sneakers, running, slip-on, dan boots pria &amp; wanita. Melayani pemesanan eceran &amp; grosir dengan pengiriman cepat ke seluruh Indonesia.
+          </p>
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <a
+              id="footer-wa-link-1"
+              href="https://wa.me/6282114710891"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition-colors"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              <span id="footer-wa-label-1">+62 821-1471-0891</span>
+            </a>
+            <a
+              id="footer-wa-link-2"
+              href="https://wa.me/6281289217188"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/30 text-xs font-semibold transition-colors"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              <span id="footer-wa-label-2">+62 812-8921-7188</span>
+            </a>
+            <a
+              id="footer-tiktok-link"
+              href="https://www.tiktok.com/@eulogiashoes"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-semibold transition-colors"
+            >
+              <i class="fa-brands fa-tiktok text-amber-400"></i>
+              <span>TikTok</span>
+            </a>
+            <a
+              id="footer-shopee-link"
+              href="https://shopee.co.id/eulogiashoes"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 text-xs font-semibold transition-colors"
+            >
+              <i class="fa-solid fa-bag-shopping text-orange-400"></i>
+              <span>Shopee</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links: Syarat & Ketentuan -->
+        <div class="md:col-span-4 space-y-2.5">
+          <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider">Informasi &amp; Kebijakan Toko</h4>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-400">
+            <li>
+              <button type="button" onclick="openTermsModal('cara-pesan')" class="hover:text-amber-400 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-angle-right text-amber-500 text-xs"></i>
+                <span>Cara Pemesanan &amp; Jadwal Kirim</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" onclick="openTermsModal('panduan-ukuran')" class="hover:text-amber-400 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-angle-right text-amber-500 text-xs"></i>
+                <span>Panduan Ukuran Kaki (Size Chart EU/cm)</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" onclick="openTermsModal('tukar-ukuran')" class="hover:text-amber-400 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-angle-right text-amber-500 text-xs"></i>
+                <span>Ketentuan Tukar Ukuran (Max 3 Hari)</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" onclick="openTermsModal('retur-refund')" class="hover:text-amber-400 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-angle-right text-amber-500 text-xs"></i>
+                <span>Prosedur Retur &amp; Refund (Wajib Unboxing)</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" onclick="openTermsModal('tidak-bisa-retur')" class="hover:text-amber-400 transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-angle-right text-amber-500 text-xs"></i>
+                <span>Kondisi Tidak Bisa Retur / Refund</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Jam Operasional -->
+        <div class="md:col-span-3 space-y-2.5">
+          <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider">Jam Operasional</h4>
+          <p class="text-xs sm:text-sm text-slate-400">Senin – Sabtu: 09.00 – 17.00 WIB</p>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Transfer sebelum pukul <strong class="text-amber-400">15.00 WIB</strong> diproses kirim di hari yang sama. Minggu &amp; tanggal merah libur pengiriman.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom Bar with Hidden Admin Lock Button at Bottom Right -->
+      <div class="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between text-xs text-slate-500">
+        <p>&copy; <span id="current-year">2026</span> EULOGIA FOOTWEAR. All rights reserved.</p>
+        <button
+          type="button"
+          id="admin-lock-btn"
+          onclick="handleAdminLockClick()"
+          class="p-2 rounded-lg text-slate-600 hover:text-amber-400 hover:bg-slate-800 transition-colors"
+          title="Akses Admin"
+          aria-label="Login Admin"
+        >
+          <i id="admin-lock-icon" class="fa-solid fa-lock text-xs"></i>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING ADMIN SETTINGS BUTTON (BOTTOM-LEFT, ONLY VISIBLE IN ADMIN MODE) ==================== -->
+  <button
+    type="button"
+    id="floating-admin-settings-btn"
+    onclick="openSettingsModal('toko-firebase')"
+    class="hidden fixed bottom-5 left-5 z-40 items-center gap-2 px-4 py-3 rounded-2xl bg-charcoal-900 hover:bg-charcoal-800 text-amber-400 border-2 border-amber-500 shadow-2xl shadow-charcoal-950/50 text-xs sm:text-sm font-bold transition-all active:scale-95"
+  >
+    <i class="fa-solid fa-sliders"></i>
+    <span>Pengaturan WA &amp; Firebase</span>
+  </button>
+
+  <!-- ==================== MODAL 1: SYARAT & KETENTUAN INTERAKTIF (5 TABS) ==================== -->
+  <div id="terms-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-charcoal-950/75 backdrop-blur-sm p-3 sm:p-6 flex items-center justify-center">
+    <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-up flex flex-col max-h-[90vh]">
+      <!-- Modal Header -->
+      <div class="bg-charcoal-900 text-white px-4 sm:px-6 py-4 flex items-center justify-between border-b border-slate-800 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center">
+            <i class="fa-solid fa-file-contract"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base sm:text-lg text-white">Syarat &amp; Ketentuan EULOGIA FOOTWEAR</h3>
+            <p class="text-[11px] sm:text-xs text-slate-400">Harap dibaca sebelum melakukan pemesanan via WhatsApp</p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onclick="closeTermsModal()"
+          class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- 5 Navigation Tabs -->
+      <div class="bg-slate-100 border-b border-slate-200 px-3 sm:px-6 pt-2.5 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0">
+        <button
+          type="button"
+          data-tab="cara-pesan"
+          onclick="switchTermsTab('cara-pesan')"
+          class="terms-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs sm:text-sm font-bold whitespace-nowrap border-b-2 transition-all"
+        >
+          <i class="fa-solid fa-bag-shopping mr-1.5"></i>Cara Pesan
+        </button>
+        <button
+          type="button"
+          data-tab="panduan-ukuran"
+          onclick="switchTermsTab('panduan-ukuran')"
+          class="terms-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs sm:text-sm font-bold whitespace-nowrap border-b-2 transition-all"
+        >
+          <i class="fa-solid fa-ruler-horizontal mr-1.5"></i>Panduan Ukuran
+        </button>
+        <button
+          type="button"
+          data-tab="tukar-ukuran"
+          onclick="switchTermsTab('tukar-ukuran')"
+          class="terms-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs sm:text-sm font-bold whitespace-nowrap border-b-2 transition-all"
+        >
+          <i class="fa-solid fa-right-left mr-1.5"></i>Tukar Ukuran
+        </button>
+        <button
+          type="button"
+          data-tab="retur-refund"
+          onclick="switchTermsTab('retur-refund')"
+          class="terms-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs sm:text-sm font-bold whitespace-nowrap border-b-2 transition-all"
+        >
+          <i class="fa-solid fa-rotate-left mr-1.5"></i>Retur &amp; Refund
+        </button>
+        <button
+          type="button"
+          data-tab="tidak-bisa-retur"
+          onclick="switchTermsTab('tidak-bisa-retur')"
+          class="terms-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs sm:text-sm font-bold whitespace-nowrap border-b-2 transition-all"
+        >
+          <i class="fa-solid fa-ban mr-1.5"></i>Tidak Bisa Retur
+        </button>
+      </div>
+
+      <!-- Tab Contents Body -->
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-700 leading-relaxed flex-1">
+        <!-- TAB 1: CARA PESAN -->
+        <div id="tab-content-cara-pesan" class="terms-tab-panel space-y-4">
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-amber-900 flex items-start gap-2.5">
+            <i class="fa-solid fa-circle-info text-amber-600 mt-0.5"></i>
+            <p class="text-xs sm:text-sm">Pemesanan dilakukan langsung melalui katalog ini dan terhubung otomatis ke WhatsApp resmi <strong>EULOGIA FOOTWEAR (+62 821-1471-0891 / +62 812-8921-7188)</strong>.</p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-7 h-7 rounded-lg bg-charcoal-900 text-amber-400 font-bold flex items-center justify-center shrink-0">1</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Pilih Model &amp; Ukuran Sepatu di Katalog</h4>
+                <p class="text-slate-600 mt-0.5">Klik kartu sepatu yang diinginkan untuk melihat detail warna, stok tersedia, dan pilih ukuran sepatu (EU).</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-7 h-7 rounded-lg bg-charcoal-900 text-amber-400 font-bold flex items-center justify-center shrink-0">2</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Cek Panduan Ukuran Kaki (cm)</h4>
+                <p class="text-slate-600 mt-0.5">Pastikan panjang telapak kaki (cm) sudah sesuai dengan tabel konversi ukuran agar nyaman dipakai dan terhindar dari salah pilih size.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-7 h-7 rounded-lg bg-charcoal-900 text-amber-400 font-bold flex items-center justify-center shrink-0">3</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Masukkan ke Keranjang &amp; Klik "Pesan via WhatsApp"</h4>
+                <p class="text-slate-600 mt-0.5">Isi nama pemesan dan alamat pengiriman di keranjang belanja, centang persetujuan S&amp;K, lalu klik tombol WhatsApp untuk mengirim format order otomatis.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-7 h-7 rounded-lg bg-charcoal-900 text-amber-400 font-bold flex items-center justify-center shrink-0">4</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Tunggu Konfirmasi Stok &amp; Total Ongkir dari Admin WA</h4>
+                <p class="text-slate-600 mt-0.5">Admin WA (<strong>+62 821-1471-0891</strong> / <strong>+62 812-8921-7188</strong>) akan mengecek ketersediaan fisik barang, mengonfirmasi harga &amp; ongkos kirim ekspedisi, serta mengirimkan nomor rekening resmi.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-7 h-7 rounded-lg bg-charcoal-900 text-amber-400 font-bold flex items-center justify-center shrink-0">5</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Batas Waktu Pembayaran 1x24 Jam &amp; Jadwal Pengiriman</h4>
+                <p class="text-slate-600 mt-0.5">Lakukan pembayaran maksimal <strong>1x24 jam</strong> setelah rincian dikirim (<em>booking stok otomatis lepas jika melewati batas waktu</em>). Transfer sebelum pukul <strong>15.00 WIB</strong> dikirim di hari yang sama (Senin–Sabtu).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: PANDUAN UKURAN -->
+        <div id="tab-content-panduan-ukuran" class="terms-tab-panel hidden space-y-4">
+          <div class="bg-slate-900 text-white rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h4 class="font-bold text-amber-400">Tips Mengukur Panjang Kaki</h4>
+              <p class="text-xs text-slate-300 mt-1">Letakkan kaki di atas kertas, tandai ujung tumit hingga ujung jari kaki terpanjang, lalu ukur dengan penggaris (cm). Tambahkan <strong>0,5 – 1 cm</strong> untuk ruang gerak jari (terutama untuk kaki lebar atau model boots/running).</p>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                  <th class="py-2.5 px-3 font-bold">Ukuran EU</th>
+                  <th class="py-2.5 px-3 font-bold">Panjang Insole (cm)</th>
+                  <th class="py-2.5 px-3 font-bold">Rekomendasi Kaki (cm)</th>
+                  <th class="py-2.5 px-3 font-bold">Kategori Umum</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">36</td><td class="py-2 px-3">23.0 cm</td><td class="py-2 px-3">22.0 – 22.5 cm</td><td class="py-2 px-3 text-pink-600 font-medium">Wanita</td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">37</td><td class="py-2 px-3">23.5 cm</td><td class="py-2 px-3">22.5 – 23.0 cm</td><td class="py-2 px-3 text-pink-600 font-medium">Wanita</td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">38</td><td class="py-2 px-3">24.0 cm</td><td class="py-2 px-3">23.0 – 23.5 cm</td><td class="py-2 px-3 text-pink-600 font-medium">Wanita</td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">39</td><td class="py-2 px-3">24.5 cm</td><td class="py-2 px-3">23.5 – 24.0 cm</td><td class="py-2 px-3 text-indigo-600 font-medium">Wanita / Pria</td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">40</td><td class="py-2 px-3">25.0 cm</td><td class="py-2 px-3">24.0 – 24.5 cm</td><td class="py-2 px-3 text-indigo-600 font-medium">Wanita / Pria</td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">41</td><td class="py-2 px-3">26.0 cm</td><td class="py-2 px-3">25.0 – 25.5 cm</td><td class="py-2 px-3 text-blue-600 font-medium">Pria</td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">42</td><td class="py-2 px-3">26.5 cm</td><td class="py-2 px-3">25.5 – 26.0 cm</td><td class="py-2 px-3 text-blue-600 font-medium">Pria</td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">43</td><td class="py-2 px-3">27.5 cm</td><td class="py-2 px-3">26.5 – 27.0 cm</td><td class="py-2 px-3 text-blue-600 font-medium">Pria</td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">44</td><td class="py-2 px-3">28.0 cm</td><td class="py-2 px-3">27.0 – 27.5 cm</td><td class="py-2 px-3 text-blue-600 font-medium">Pria</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-slate-500 italic">*Catatan: Terdapat toleransi selisih 0,5 – 1 cm antar model sepatu (sneakers, running, boots, dan slip-on). Silakan konsultasi ke Admin WA sebelum order jika ragu memilih size.</p>
+        </div>
+
+        <!-- TAB 3: TUKAR UKURAN -->
+        <div id="tab-content-tukar-ukuran" class="terms-tab-panel hidden space-y-3.5">
+          <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 text-emerald-900">
+            <h4 class="font-bold flex items-center gap-2"><i class="fa-solid fa-right-left text-emerald-600"></i> Kebijakan Penukaran Ukuran (Size Exchange)</h4>
+            <p class="text-xs sm:text-sm mt-1">Kami memberikan fasilitas tukar ukuran agar sepatu yang Anda beli pas dan nyaman dipakai, dengan ketentuan berikut:</p>
+          </div>
+
+          <ul class="space-y-2.5">
+            <li class="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <i class="fa-solid fa-calendar-check text-amber-500 mt-1"></i>
+              <div>
+                <strong class="text-slate-900">Batas Waktu Pengajuan Maksimal 3 Hari Kalender:</strong>
+                <p class="text-slate-600">Konfirmasi penukaran ukuran wajib disampaikan ke Admin WA maksimal <strong>3 hari kalender</strong> setelah paket diterima berdasarkan status tracking ekspedisi.</p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <i class="fa-solid fa-sparkles text-amber-500 mt-1"></i>
+              <div>
+                <strong class="text-slate-900">Kondisi Sepatu Wajib 100% Baru &amp; Lengkap:</strong>
+                <p class="text-slate-600">Sepatu harus bersih, belum pernah dipakai berjalan di luar ruangan, tidak ada noda/debu di bagian sol bawah, tidak ada lipatan tekukan (<em>crease</em>) pada bagian depan sepatu, serta box asli dan tag lengkap.</p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50/70 border border-amber-200">
+              <i class="fa-solid fa-truck-fast text-amber-600 mt-1"></i>
+              <div>
+                <strong class="text-slate-900">Aturan Ongkos Kirim Tegas:</strong>
+                <ul class="list-disc list-inside text-slate-700 mt-1 space-y-1">
+                  <li>Jika penukaran terjadi karena <strong>pembeli salah memilih ukuran</strong>, maka <strong>ongkos kirim pulang-pergi (PP) ditanggung sepenuhnya oleh pembeli</strong>.</li>
+                  <li>Jika penukaran terjadi karena <strong>kesalahan kirim dari pihak toko</strong>, maka <strong>ongkos kirim pulang-pergi (PP) ditanggung penuh oleh EULOGIA FOOTWEAR</strong>.</li>
+                </ul>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <i class="fa-solid fa-boxes-stacked text-amber-500 mt-1"></i>
+              <div>
+                <strong class="text-slate-900">Ketersediaan Stok &amp; Produk Promo:</strong>
+                <p class="text-slate-600">Penukaran ukuran bergantung pada ketersediaan stok ukuran pengganti (jika habis, dapat ditukar ke model lain dengan selisih harga disesuaikan). Produk kategori <strong>Promo / Clearance Sale bersifat Final Sale</strong> dan tidak dapat ditukar ukuran.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- TAB 4: RETUR & REFUND -->
+        <div id="tab-content-retur-refund" class="terms-tab-panel hidden space-y-3.5">
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-3.5 text-blue-950">
+            <h4 class="font-bold flex items-center gap-2"><i class="fa-solid fa-shield-check text-blue-600"></i> Garansi Retur Barang &amp; Pengembalian Dana (Refund)</h4>
+            <p class="text-xs sm:text-sm mt-1">Berlaku khusus apabila terjadi <strong>cacat produksi mayor</strong> (sol lepas, bahan robek, lem terkelupas parah) atau <strong>salah kirim model/warna/ukuran</strong> dari pihak EULOGIA FOOTWEAR.</p>
+          </div>
+
+          <div class="space-y-2.5">
+            <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 flex items-start gap-3">
+              <i class="fa-solid fa-video text-rose-600 text-lg mt-0.5"></i>
+              <div>
+                <h5 class="font-bold text-rose-900">WAJIB Video Unboxing Utuh Tanpa Jeda</h5>
+                <p class="text-rose-800 mt-0.5">Komplain hanya diproses jika melampirkan video unboxing asli tanpa terpotong (<em>no cut</em>) dan tanpa edit, direkam mulai dari kondisi paket masih tersegel rapat (resi terlihat jelas) hingga sepatu dikeluarkan dan diperiksa menyeluruh.</p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+              <i class="fa-solid fa-hourglass-half text-amber-500 mt-1"></i>
+              <div>
+                <strong class="text-slate-900">Batas Klaim Maksimal 2x24 Jam:</strong>
+                <p class="text-slate-600">Laporan kendala beserta video unboxing wajib dikirim ke Admin WA maksimal <strong>2x24 jam</strong> sejak status paket dinyatakan terkirim oleh kurir.</p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+              <i class="fa-solid fa-money-bill-transfer text-emerald-600 mt-1"></i>
+              <div>
+                <strong class="text-slate-900">Opsi Penggantian Unit atau Refund Penuh:</strong>
+                <p class="text-slate-600">Pembeli berhak memilih penggantian unit sepatu baru yang sesuai pesanan (ongkir PP ditanggung toko), atau <strong>pengembalian dana (refund) 100%</strong> ke rekening bank / e-wallet pembeli maksimal <strong>1–2 hari kerja</strong> setelah paket retur tiba dan diverifikasi tim gudang.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: TIDAK BISA RETUR -->
+        <div id="tab-content-tidak-bisa-retur" class="terms-tab-panel hidden space-y-3.5">
+          <div class="bg-rose-50 border border-rose-200 rounded-xl p-3.5 text-rose-950">
+            <h4 class="font-bold flex items-center gap-2"><i class="fa-solid fa-ban text-rose-600"></i> Kondisi yang Tidak Dapat Diretur / Refund</h4>
+            <p class="text-xs sm:text-sm mt-1">Demi menjaga keadilan dan higienitas produk bagi seluruh pelanggan, pengajuan retur, tukar ukuran, maupun refund <strong>otomatis ditolak</strong> apabila memenuhi salah satu kondisi berikut:</p>
+          </div>
+
+          <ol class="space-y-2">
+            <li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+              <span><strong>Tidak menyertakan Video Unboxing utuh tanpa jeda</strong> sejak paket tersegel hingga pemeriksaan sepatu selesai (foto saja atau video yang sudah dipotong tidak berlaku).</span>
+            </li>
+            <li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+              <span><strong>Sepatu sudah pernah dipakai di luar ruangan</strong>, bagian outsole kotor/aus, berbau kaki/parfum, atau terdapat bekas lipatan/tekukan akibat pemakaian.</span>
+            </li>
+            <li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+              <span><strong>Box sepatu rusak parah, penyok, dicoret-coret, ditempeli lakban langsung</strong> (akibat tidak dibungkus plastik/kardus tambahan saat dikirim balik), hilang, atau tag/kelengkapan tidak utuh.</span>
+            </li>
+            <li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">4</span>
+              <span><strong>Melewati batas waktu klaim</strong> yang ditentukan (lebih dari <strong>2x24 jam</strong> untuk komplain cacat/salah kirim, atau lebih dari <strong>3 hari kalender</strong> untuk pengajuan tukar ukuran).</span>
+            </li>
+            <li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">5</span>
+              <span><strong>Kerusakan akibat kesalahan pemakaian pembeli</strong> (terkena benda tajam, dicuci dengan bahan kimia keras, terjemur panas berlebih) atau kelalaian ekspedisi tanpa asuransi pengiriman.</span>
+            </li>
+            <li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">6</span>
+              <span><strong>Toleransi minor produksi pabrik</strong> seperti sisa lem tipis yang wajar, benang jahitan kecil, atau sedikit perbedaan tone warna akibat pencahayaan layar HP/kamera.</span>
+            </li>
+            <li class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="w-6 h-6 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">7</span>
+              <span><strong>Produk bertanda Clearance Sale / Cuci Gudang</strong> atau harga promo khusus (bersifat <em>final sale</em>, kecuali ditemukan cacat produksi mayor saat unboxing).</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 px-4 sm:px-6 py-3.5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <button
+          type="button"
+          onclick="closeTermsModal()"
+          class="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs sm:text-sm font-semibold transition-colors"
+        >
+          Tutup
+        </button>
+        <div class="flex flex-wrap items-center gap-2">
+          <a
+            id="terms-wa-btn-1"
+            href="https://wa.me/6282114710891?text=Halo%20Admin%201%20EULOGIA%20FOOTWEAR%2C%20saya%20ingin%20bertanya%20terkait%20ketentuan%20order%20/%20tukar%20size%20/%20retur."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold shadow-md transition-all"
+          >
+            <i class="fa-brands fa-whatsapp text-base"></i>
+            <span>Chat CS 1</span>
+          </a>
+          <a
+            id="terms-wa-btn-2"
+            href="https://wa.me/6281289217188?text=Halo%20Admin%202%20EULOGIA%20FOOTWEAR%2C%20saya%20ingin%20bertanya%20terkait%20ketentuan%20order%20/%20tukar%20size%20/%20retur."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-emerald-400 text-xs sm:text-sm font-bold shadow-md transition-all"
+          >
+            <i class="fa-brands fa-whatsapp text-base"></i>
+            <span>Chat CS 2</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: PRODUCT DETAIL MODAL ==================== -->
+  <div id="detail-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-charcoal-950/75 backdrop-blur-sm p-3 sm:p-6 flex items-center justify-center">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-up">
+      <div class="relative bg-slate-100 p-4 sm:p-6 flex flex-col items-center justify-center border-b border-slate-200 gap-3">
+        <!-- Photo Counter Pill (Visible when > 1 photo) -->
+        <span
+          id="detail-photo-counter"
+          class="hidden absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-charcoal-900/85 text-amber-400 font-display text-xs font-bold shadow-xs z-10"
+        >
+          1 / 1
+        </span>
+
+        <button
+          type="button"
+          onclick="closeDetailModal()"
+          class="absolute top-3 right-3 w-9 h-9 rounded-xl bg-white/90 hover:bg-white text-slate-700 shadow-sm flex items-center justify-center transition-colors z-10"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Image / SVG Preview Container with Prev/Next Navigation -->
+        <div class="relative w-full max-w-sm flex items-center justify-center">
+          <button
+            type="button"
+            id="detail-prev-img-btn"
+            onclick="prevDetailImage()"
+            class="hidden absolute left-2 z-10 w-8 h-8 rounded-full bg-charcoal-900/80 hover:bg-charcoal-900 text-white shadow-md flex items-center justify-center transition-all active:scale-90"
+            aria-label="Foto sebelumnya"
+          >
+            <i class="fa-solid fa-chevron-left text-xs"></i>
+          </button>
+
+          <div
+            id="detail-visual"
+            class="w-full aspect-[4/3] rounded-xl bg-white shadow-inner border border-slate-200/80 flex items-center justify-center overflow-hidden p-3 select-none"
+          >
+            <!-- Populated dynamically -->
+          </div>
+
+          <button
+            type="button"
+            id="detail-next-img-btn"
+            onclick="nextDetailImage()"
+            class="hidden absolute right-2 z-10 w-8 h-8 rounded-full bg-charcoal-900/80 hover:bg-charcoal-900 text-white shadow-md flex items-center justify-center transition-all active:scale-90"
+            aria-label="Foto berikutnya"
+          >
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Thumbnail Strip (Visible when > 1 photo) -->
+        <div id="detail-thumbnails" class="hidden flex items-center justify-center gap-2 max-w-full overflow-x-auto py-1 px-2 no-scrollbar">
+          <!-- Thumbnails injected dynamically -->
+        </div>
+      </div>
+
+      <div class="p-4 sm:p-6 space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span id="detail-sku" class="px-2 py-0.5 rounded-md bg-charcoal-900 text-amber-400 font-display text-xs font-bold">NMR-001</span>
+              <span id="detail-category" class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-xs font-semibold">PRIA</span>
+              <span id="detail-status" class="px-2 py-0.5 rounded-md text-xs font-bold">TERSEDIA</span>
+            </div>
+            <h3 id="detail-name" class="font-display text-xl sm:text-2xl font-bold text-slate-900">NAMA SEPATU</h3>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Varian Warna: <strong id="detail-color" class="text-slate-800">-</strong></p>
+          </div>
+
+          <div class="text-left sm:text-right">
+            <p class="text-[11px] text-slate-400 uppercase font-semibold">Harga</p>
+            <p id="detail-price" class="font-display text-lg sm:text-xl font-bold text-amber-600">Tanya Admin</p>
+            <p class="text-xs text-slate-500">Sisa Stok: <strong id="detail-stock" class="text-slate-800">0</strong> psg</p>
+          </div>
+        </div>
+
+        <p id="detail-desc" class="text-xs sm:text-sm text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">
+          Deskripsi sepatu...
+        </p>
+
+        <!-- Size Selector & Shortcut to Size Chart / Tukar Size -->
+        <div class="space-y-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <label class="text-xs sm:text-sm font-bold text-slate-800">Pilih Ukuran (EU):</label>
+            <button
+              type="button"
+              onclick="openTermsModal('panduan-ukuran')"
+              class="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 underline underline-offset-2"
+            >
+              <i class="fa-solid fa-ruler"></i>
+              <span>Cek Panduan Ukuran &amp; Aturan Tukar Size</span>
+            </button>
+          </div>
+          <div id="detail-sizes" class="flex flex-wrap gap-2">
+            <!-- Size pills injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Quantity & Add to Cart -->
+        <div class="pt-3 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div class="flex items-center justify-between sm:justify-start bg-slate-100 rounded-xl p-1 border border-slate-200">
+            <button type="button" onclick="changeDetailQty(-1)" class="w-9 h-9 rounded-lg bg-white hover:bg-slate-50 text-slate-800 font-bold shadow-xs">
+              <i class="fa-solid fa-minus text-xs"></i>
+            </button>
+            <span id="detail-qty" class="w-10 text-center font-bold text-sm text-slate-900">1</span>
+            <button type="button" onclick="changeDetailQty(1)" class="w-9 h-9 rounded-lg bg-white hover:bg-slate-50 text-slate-800 font-bold shadow-xs">
+              <i class="fa-solid fa-plus text-xs"></i>
+            </button>
+          </div>
+
+          <button
+            type="button"
+            id="detail-add-cart-btn"
+            onclick="addCurrentProductToCart()"
+            class="flex-1 py-3 px-5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-amber-400 font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2 active:scale-95"
+          >
+            <i class="fa-solid fa-cart-plus"></i>
+            <span>Tambah ke Keranjang</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DRAWER 3: SHOPPING CART & WHATSAPP CHECKOUT ==================== -->
+  <div id="cart-drawer-backdrop" class="hidden fixed inset-0 z-50 bg-charcoal-950/70 backdrop-blur-xs transition-opacity" onclick="toggleCartDrawer(false)"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-white shadow-2xl border-l border-slate-200 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Drawer Header -->
+    <div class="bg-charcoal-900 text-white px-5 py-4 flex items-center justify-between border-b border-slate-800 shrink-0">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-amber-500 text-charcoal-950 flex items-center justify-center font-bold">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div>
+          <h3 class="font-display font-bold text-base">Keranjang Belanja</h3>
+          <p class="text-[11px] text-slate-400">Checkout cepat langsung ke WhatsApp Admin</p>
+        </div>
+      </div>
+      <button
+        type="button"
+        onclick="toggleCartDrawer(false)"
+        class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+        aria-label="Tutup Keranjang"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Cart Items List -->
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3 bg-slate-50">
+      <!-- Populated dynamically by renderCart() -->
+    </div>
+
+    <!-- Checkout Form & WhatsApp CTA -->
+    <div id="cart-footer" class="hidden bg-white border-t border-slate-200 p-4 sm:p-5 space-y-3 shrink-0">
+      <div class="grid grid-cols-1 gap-2.5">
+        <div>
+          <label for="checkout-customer-name" class="block text-[11px] font-bold text-slate-700 mb-1">Nama Pemesan *</label>
+          <input
+            type="text"
+            id="checkout-customer-name"
+            placeholder="Contoh: Budi Santoso"
+            class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 focus:border-amber-500 text-xs sm:text-sm outline-none"
+          />
+        </div>
+        <div>
+          <label for="checkout-customer-address" class="block text-[11px] font-bold text-slate-700 mb-1">Alamat Lengkap Pengiriman (Kecamatan / Kota) *</label>
+          <textarea
+            id="checkout-customer-address"
+            rows="2"
+            placeholder="Contoh: Jl. Merdeka No. 12, Kec. Karawang Barat, Kab. Karawang"
+            class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 focus:border-amber-500 text-xs sm:text-sm outline-none"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Choose WhatsApp CS 1 or CS 2 -->
+      <div class="space-y-1.5">
+        <span class="block text-[11px] font-bold text-slate-700">Pilih Tujuan WhatsApp Admin CS:</span>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="flex items-center gap-2 p-2 rounded-xl border border-slate-200 bg-slate-50 hover:border-emerald-500 cursor-pointer text-xs">
+            <input type="radio" name="checkout-wa-target" value="1" checked class="accent-emerald-600" />
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900">Admin CS 1</div>
+              <div id="cart-wa-label-1" class="text-[10px] text-emerald-700 font-semibold truncate">+62 821-1471-0891</div>
+            </div>
+          </label>
+          <label class="flex items-center gap-2 p-2 rounded-xl border border-slate-200 bg-slate-50 hover:border-emerald-500 cursor-pointer text-xs">
+            <input type="radio" name="checkout-wa-target" value="2" class="accent-emerald-600" />
+            <div class="min-w-0">
+              <div class="font-bold text-slate-900">Admin CS 2</div>
+              <div id="cart-wa-label-2" class="text-[10px] text-emerald-700 font-semibold truncate">+62 812-8921-7188</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Terms Agreement Checkbox -->
+      <label class="flex items-start gap-2 text-[11px] text-slate-600 bg-amber-50/70 p-2.5 rounded-xl border border-amber-200/80 cursor-pointer">
+        <input type="checkbox" id="checkout-agree-terms" class="mt-0.5 accent-amber-600 rounded" />
+        <span>
+          Saya telah membaca &amp; menyetujui
+          <button type="button" onclick="openTermsModal('cara-pesan')" class="font-bold text-amber-700 underline">Syarat &amp; Ketentuan</button>
+          (booking stok 1x24 jam, tukar size maks. 3 hari, &amp; wajib video unboxing).
+        </span>
+      </label>
+
+      <!-- Subtotal Summary -->
+      <div class="flex items-center justify-between pt-1 border-t border-slate-100">
+        <span class="text-xs font-semibold text-slate-500">Estimasi Total Produk:</span>
+        <span id="cart-total-price" class="font-display font-bold text-base sm:text-lg text-slate-900">Rp 0</span>
+      </div>
+
+      <button
+        type="button"
+        onclick="checkoutWhatsApp()"
+        class="w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-charcoal-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all active:scale-95"
+      >
+        <i class="fa-brands fa-whatsapp text-lg"></i>
+        <span>Pesan via WhatsApp Sekarang</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==================== MODAL 4A: FIRST-TIME OWNER ADMIN ACTIVATION (LOCAL MODE ONLY) ==================== -->
+  <div id="admin-setup-modal" class="hidden fixed inset-0 z-50 bg-charcoal-950/75 backdrop-blur-sm p-4 flex items-center justify-center">
+    <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-up">
+      <div class="bg-charcoal-900 text-white px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-key text-amber-400"></i>
+          <div>
+            <h3 class="font-display font-bold text-sm sm:text-base leading-tight">Aktivasi Akun Admin</h3>
+            <p class="text-[11px] text-amber-400 font-medium">Eksklusif Pemilik Toko</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeAdminSetupModal()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form onsubmit="submitAdminSetup(event)" class="p-5 space-y-3.5" autocomplete="off">
+        <p class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-200">
+          Buat kredensial admin pribadi Anda untuk mengunci akses pengelolaan katalog pada perangkat ini. Password dienkripsi menggunakan <strong>SHA-256</strong>.
+        </p>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Email Admin Pemilik</label>
+          <input
+            type="email"
+            id="setup-admin-email"
+            required
+            placeholder="Masukkan email aktif Anda"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-amber-500 text-sm outline-none"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Password Rahasia (Min. 8 Karakter)</label>
+          <div class="relative">
+            <input
+              type="password"
+              id="setup-admin-password"
+              required
+              minlength="8"
+              placeholder="Minimal 8 karakter"
+              class="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-amber-500 text-sm outline-none"
+            />
+            <button
+              type="button"
+              onclick="togglePasswordVisibility('setup-admin-password', this)"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+              aria-label="Lihat atau sembunyikan password"
+            >
+              <i class="fa-solid fa-eye text-xs"></i>
+            </button>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Konfirmasi Password Rahasia</label>
+          <div class="relative">
+            <input
+              type="password"
+              id="setup-admin-confirm"
+              required
+              minlength="8"
+              placeholder="Ulangi password rahasia"
+              class="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-amber-500 text-sm outline-none"
+            />
+            <button
+              type="button"
+              onclick="togglePasswordVisibility('setup-admin-confirm', this)"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+              aria-label="Lihat atau sembunyikan konfirmasi password"
+            >
+              <i class="fa-solid fa-eye text-xs"></i>
+            </button>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="w-full py-2.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-amber-400 font-bold text-sm transition-colors"
+        >
+          Simpan &amp; Aktifkan Admin
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4B: ADMIN LOGIN MODAL (CLEAN, NO HINTS/DEFAULTS) ==================== -->
+  <div id="admin-login-modal" class="hidden fixed inset-0 z-50 bg-charcoal-950/75 backdrop-blur-sm p-4 flex items-center justify-center">
+    <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-up">
+      <div class="bg-charcoal-900 text-white px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-user-shield text-amber-400"></i>
+          <div>
+            <h3 class="font-display font-bold text-base leading-tight">Login Admin</h3>
+            <p id="login-auth-mode-label" class="text-[11px] text-slate-400">Akses Terproteksi Pemilik</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeAdminLoginModal()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form onsubmit="submitAdminLogin(event)" class="p-5 space-y-3.5" autocomplete="off">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Email Admin</label>
+          <input
+            type="email"
+            id="admin-email-input"
+            required
+            placeholder="Masukkan email terdaftar"
+            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-amber-500 text-sm outline-none"
+          />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Password</label>
+          <div class="relative">
+            <input
+              type="password"
+              id="admin-password-input"
+              required
+              placeholder="Masukkan password"
+              class="w-full pl-3.5 pr-10 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-amber-500 text-sm outline-none"
+            />
+            <button
+              type="button"
+              onclick="togglePasswordVisibility('admin-password-input', this)"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+              aria-label="Lihat atau sembunyikan password"
+            >
+              <i class="fa-solid fa-eye text-xs"></i>
+            </button>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="w-full py-2.5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-amber-400 font-bold text-sm transition-colors"
+        >
+          Masuk Mode Admin
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 5: ADMIN ADD / EDIT PRODUCT MODAL ==================== -->
+  <div id="product-form-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-charcoal-950/75 backdrop-blur-sm p-3 sm:p-6 flex items-center justify-center">
+    <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-up">
+      <div class="bg-charcoal-900 text-white px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-shoe-prints text-amber-400"></i>
+          <h3 id="product-form-title" class="font-display font-bold text-base">Tambah Produk Sepatu</h3>
+        </div>
+        <button type="button" onclick="closeProductFormModal()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="saveProductForm(event)" class="p-5 space-y-3.5 text-xs sm:text-sm max-h-[82vh] overflow-y-auto">
+        <input type="hidden" id="pf-edit-id" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Kode SKU *</label>
+            <input type="text" id="pf-sku" required placeholder="NMR-037" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500 uppercase" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block font-bold text-slate-700 mb-1">Nama Model Sepatu *</label>
+            <input type="text" id="pf-name" required placeholder="Contoh: AIR MAX URBAN" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500 uppercase" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Varian Warna *</label>
+            <input type="text" id="pf-color" required placeholder="Contoh: WHITE - BLACK" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500 uppercase" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Kategori Gender *</label>
+            <select id="pf-category" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500">
+              <option value="PRIA">PRIA</option>
+              <option value="WANITA">WANITA</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Sisa Stok (psg) *</label>
+            <input type="number" id="pf-stock" min="0" required value="10" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Status Stok *</label>
+            <select id="pf-status" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500">
+              <option value="TERSEDIA">TERSEDIA</option>
+              <option value="MENIPIS">MENIPIS</option>
+              <option value="HABIS">HABIS</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Harga Jual (Rp)</label>
+            <input type="number" id="pf-price" min="0" step="1000" value="0" placeholder="0 = Tanya Admin" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500" />
+          </div>
+        </div>
+
+        <!-- Multi-Photo Upload / URL Manager with Live Gallery Grid -->
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <label class="font-bold text-slate-800">Galeri Foto Sepatu (Bisa Banyak Foto)</label>
+              <span id="pf-photo-count-badge" class="px-2 py-0.5 rounded-full bg-charcoal-900 text-amber-400 text-[10px] font-bold">0 Foto</span>
+            </div>
+            <button type="button" onclick="clearProductFormImages()" class="text-[11px] font-semibold text-rose-600 hover:underline">
+              Reset ke Ilustrasi SVG
+            </button>
+          </div>
+
+          <!-- Multi-File Picker -->
+          <div>
+            <input
+              type="file"
+              id="pf-image-files"
+              accept="image/*"
+              multiple
+              onchange="handleProductImageFiles(event)"
+              class="block w-full text-xs text-slate-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-charcoal-900 file:text-amber-400 hover:file:bg-charcoal-800 cursor-pointer"
+            />
+            <p class="text-[11px] text-slate-500 mt-1">Pilih 1 atau beberapa foto sekaligus dari galeri (maks. 8 foto per produk, otomatis dikompresi).</p>
+          </div>
+
+          <!-- Add Image by URL -->
+          <div class="flex items-center gap-2">
+            <input
+              type="url"
+              id="pf-image-url-input"
+              placeholder="Atau tempel link URL foto (https://...)"
+              class="flex-1 px-3 py-2 rounded-xl bg-white border border-slate-300 outline-none focus:border-amber-500 text-xs"
+            />
+            <button
+              type="button"
+              onclick="addProductFormImageUrl()"
+              class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold shrink-0 transition-colors"
+            >
+              + Tambah URL
+            </button>
+          </div>
+
+          <!-- Interactive Multi-Photo Preview & Reorder Grid -->
+          <div id="pf-gallery-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 pt-1">
+            <!-- Populated dynamically by renderProductFormGallery() -->
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Deskripsi Singkat</label>
+          <textarea id="pf-description" rows="2" placeholder="Keterangan bahan, kenyamanan, dan detail sepatu..." class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="closeProductFormModal()" class="px-4 py-2 rounded-xl bg-slate-200 text-slate-800 font-semibold">Batal</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-amber-400 font-bold">Simpan Produk</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 6: ADMIN SETTINGS (WA, FIREBASE & AKUN ADMIN) ==================== -->
+  <div id="settings-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-charcoal-950/75 backdrop-blur-sm p-4 flex items-center justify-center">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-up">
+      <div class="bg-charcoal-900 text-white px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-sliders text-amber-400"></i>
+          <h3 class="font-display font-bold text-base">Pengaturan Toko &amp; Akun Admin</h3>
+        </div>
+        <button type="button" onclick="closeSettingsModal()" class="text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Settings Navigation Tabs -->
+      <div class="bg-slate-100 border-b border-slate-200 px-5 pt-2.5 flex gap-2">
+        <button
+          type="button"
+          data-settings-tab="toko-firebase"
+          onclick="switchSettingsTab('toko-firebase')"
+          class="settings-tab-btn px-3.5 py-2 rounded-t-xl text-xs sm:text-sm font-bold border-b-2 transition-all"
+        >
+          <i class="fa-brands fa-whatsapp mr-1.5 text-emerald-600"></i>WA, Medsos &amp; Firebase
+        </button>
+        <button
+          type="button"
+          data-settings-tab="akun-admin"
+          onclick="switchSettingsTab('akun-admin')"
+          class="settings-tab-btn px-3.5 py-2 rounded-t-xl text-xs sm:text-sm font-bold border-b-2 transition-all"
+        >
+          <i class="fa-solid fa-user-lock mr-1.5 text-amber-600"></i>Akun Admin
+        </button>
+      </div>
+
+      <!-- TAB 1: WA, MEDSOS & FIREBASE -->
+      <form id="settings-panel-toko-firebase" onsubmit="saveStoreSettings(event)" class="settings-tab-panel p-5 space-y-3.5 text-xs sm:text-sm max-h-[75vh] overflow-y-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Nomor WA Admin 1 (Format 628...)</label>
+            <input type="text" id="set-wa-number" required placeholder="6282114710891" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Nomor WA Admin 2 (Format 628...)</label>
+            <input type="text" id="set-wa-number-2" required placeholder="6281289217188" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Link TikTok Toko</label>
+            <input type="url" id="set-tiktok-url" placeholder="https://www.tiktok.com/@eulogiashoes" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Link Shopee Toko</label>
+            <input type="url" id="set-shopee-url" placeholder="https://shopee.co.id/eulogiashoes" class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500" />
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200 pt-3">
+          <label class="block font-bold text-slate-700 mb-1">Konfigurasi Firebase (JSON firebaseConfig)</label>
+          <p class="text-[11px] text-slate-500 mb-1.5">Tempel objek JSON <code class="bg-slate-100 px-1 rounded">{"apiKey":"...","authDomain":"...","projectId":"..."}</code> untuk sinkronisasi database cloud Firestore &amp; mewajibkan login server-side Firebase Authentication.</p>
+          <textarea
+            id="set-firebase-config"
+            rows="4"
+            placeholder='{"apiKey": "...", "authDomain": "...", "projectId": "...", "storageBucket": "...", "messagingSenderId": "...", "appId": "..."}'
+            class="w-full px-3 py-2 rounded-xl bg-slate-900 text-emerald-400 font-mono text-xs border border-slate-700 outline-none focus:border-amber-500"
+          ></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeSettingsModal()" class="px-4 py-2 rounded-xl bg-slate-200 text-slate-800 font-semibold">Tutup</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold">Simpan Pengaturan</button>
+        </div>
+      </form>
+
+      <!-- TAB 2: UPDATE AKUN ADMIN -->
+      <form id="settings-panel-akun-admin" onsubmit="submitUpdateAdminAccount(event)" autocomplete="off" class="settings-tab-panel hidden p-5 space-y-3.5 text-xs sm:text-sm max-h-[75vh] overflow-y-auto">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-2">
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Status Autentikasi Aktif</p>
+            <p id="acc-current-email-display" class="text-xs sm:text-sm font-bold text-slate-900 mt-0.5">-</p>
+          </div>
+          <span id="acc-auth-provider-badge" class="px-2.5 py-1 rounded-full bg-charcoal-900 text-amber-400 text-[11px] font-bold">
+            Mode Lokal SHA-256
+          </span>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Email Admin</label>
+          <input
+            type="email"
+            id="acc-new-email"
+            required
+            placeholder="Email admin aktif"
+            class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500"
+          />
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Password Lama (Wajib untuk Verifikasi) *</label>
+          <div class="relative">
+            <input
+              type="password"
+              id="acc-old-password"
+              required
+              placeholder="Masukkan password saat ini"
+              class="w-full pl-3 pr-10 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500"
+            />
+            <button
+              type="button"
+              onclick="togglePasswordVisibility('acc-old-password', this)"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+              aria-label="Lihat atau sembunyikan password lama"
+            >
+              <i class="fa-solid fa-eye text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Password Baru (Min. 8 Karakter) *</label>
+            <div class="relative">
+              <input
+                type="password"
+                id="acc-new-password"
+                required
+                minlength="8"
+                placeholder="Minimal 8 karakter"
+                class="w-full pl-3 pr-10 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500"
+              />
+              <button
+                type="button"
+                onclick="togglePasswordVisibility('acc-new-password', this)"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+                aria-label="Lihat atau sembunyikan password baru"
+              >
+                <i class="fa-solid fa-eye text-xs"></i>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Konfirmasi Password Baru *</label>
+            <div class="relative">
+              <input
+                type="password"
+                id="acc-confirm-password"
+                required
+                minlength="8"
+                placeholder="Ulangi password baru"
+                class="w-full pl-3 pr-10 py-2 rounded-xl bg-slate-50 border border-slate-300 outline-none focus:border-amber-500"
+              />
+              <button
+                type="button"
+                onclick="togglePasswordVisibility('acc-confirm-password', this)"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+                aria-label="Lihat atau sembunyikan konfirmasi password baru"
+              >
+                <i class="fa-solid fa-eye text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Firebase Reset Password Action (Visible only when Firebase Auth is active) -->
+        <div id="firebase-reset-password-box" class="hidden pt-1">
+          <button
+            type="button"
+            onclick="sendAdminPasswordResetEmail()"
+            class="w-full py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+          >
+            <i class="fa-solid fa-envelope-circle-check"></i>
+            <span>Kirim Email Reset Password via Firebase</span>
+          </button>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
+          <button type="button" onclick="closeSettingsModal()" class="px-4 py-2 rounded-xl bg-slate-200 text-slate-800 font-semibold">Tutup</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-amber-400 font-bold">
+            Perbarui Akun Admin
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== CUSTOM CONFIRMATION DIALOG (NO WINDOW.CONFIRM) ==================== -->
+  <div id="confirm-dialog" class="hidden fixed inset-0 z-50 bg-charcoal-950/75 backdrop-blur-sm p-4 flex items-center justify-center">
+    <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-slate-200 p-5 space-y-4 animate-fade-up">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div>
+          <h4 id="confirm-dialog-title" class="font-display font-bold text-base text-slate-900">Konfirmasi</h4>
+          <p id="confirm-dialog-message" class="text-xs sm:text-sm text-slate-600 mt-0.5">Apakah Anda yakin?</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-end gap-2">
+        <button type="button" onclick="closeConfirmDialog()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold">Batal</button>
+        <button type="button" id="confirm-dialog-ok-btn" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-bold">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ==================== APPLICATION JAVASCRIPT ==================== -->
+  <script>
+    // 1. MASTER DATA 36 PRODUK EULOGIA FOOTWEAR (NMR-001 s/d NMR-036)
+    const INITIAL_PRODUCTS = [
+      { id: "NMR-001", sku: "NMR-001", name: "ABU SPORT", color: "WHITE - GREY", category: "PRIA", stock: 7, price: 0, status: "TERSEDIA", image: "", description: "Sepatu ABU SPORT varian warna WHITE - GREY (Pria). Ringan, breathable, dan nyaman untuk aktivitas olahraga maupun harian." },
+      { id: "NMR-002", sku: "NMR-002", name: "ALEXANDERS MC QUEEN", color: "WHITE", category: "WANITA", stock: 9, price: 0, status: "TERSEDIA", image: "", description: "Sepatu ALEXANDERS MC QUEEN varian warna WHITE (Wanita). Siluet platform modern elegan yang mudah dipadukan dengan berbagai outfit." },
+      { id: "NMR-003", sku: "NMR-003", name: "AUTUM INS KOREAN", color: "ORANGE - GREEN", category: "WANITA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu AUTUM INS KOREAN varian warna ORANGE - GREEN (Wanita). Desain Korean street style kekinian dengan kombinasi warna cerah." },
+      { id: "NMR-004", sku: "NMR-004", name: "BEEYOO", color: "WHITE", category: "WANITA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu BEEYOO varian warna WHITE (Wanita). Sneakers kasual minimalis dengan sol empuk untuk kenyamanan seharian." },
+      { id: "NMR-005", sku: "NMR-005", name: "BLAHACAIERF", color: "WHITE - BLACK SILVER", category: "WANITA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu BLAHACAIERF varian warna WHITE - BLACK SILVER (Wanita). Aksen metalik modern dengan tampilan sporty dan trendi." },
+      { id: "NMR-006", sku: "NMR-006", name: "BOOTS HIGH BLACK", color: "BLACK", category: "PRIA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu BOOTS HIGH BLACK varian warna BLACK (Pria). Potongan tinggi gagah dengan outsole anti-slip untuk gaya maskulin." },
+      { id: "NMR-007", sku: "NMR-007", name: "BOOTS HIGH BROWN", color: "BROWN", category: "PRIA", stock: 120, price: 0, status: "TERSEDIA", image: "", description: "Sepatu BOOTS HIGH BROWN varian warna BROWN (Pria). Material kokoh bernuansa coklat klasik yang tangguh untuk harian maupun touring." },
+      { id: "NMR-008", sku: "NMR-008", name: "EP CASUAL", color: "WHITE", category: "WANITA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu EP CASUAL varian warna WHITE (Wanita). Desain bersih dan ringan untuk kuliah, kerja santai, maupun jalan-jalan." },
+      { id: "NMR-009", sku: "NMR-009", name: "GA CASUAL", color: "WHITE", category: "WANITA", stock: 9, price: 0, status: "TERSEDIA", image: "", description: "Sepatu GA CASUAL varian warna WHITE (Wanita). Nyaman dipakai harian dengan bantalan insole lembut dari EULOGIA FOOTWEAR." },
+      { id: "NMR-010", sku: "NMR-010", name: "K - 20 BROWN SLIP ON", color: "BROWN", category: "PRIA", stock: 4, price: 0, status: "MENIPIS", image: "", description: "Sepatu K - 20 BROWN SLIP ON varian warna BROWN (Pria). Praktis tanpa tali dengan tampilan rapi untuk acara semi-formal maupun santai." },
+      { id: "NMR-011", sku: "NMR-011", name: "KSC303", color: "WHITE", category: "PRIA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu KSC303 varian warna WHITE (Pria). Sneakers putih klasik serbaguna dengan konstruksi jahitan rapi dan sol fleksibel." },
+      { id: "NMR-012", sku: "NMR-012", name: "LIGHT BLUE OUTXSIDE", color: "TOSCA WHITE", category: "PRIA", stock: 5, price: 0, status: "MENIPIS", image: "", description: "Sepatu LIGHT BLUE OUTXSIDE varian warna TOSCA WHITE (Pria). Perpaduan warna segar dan sporty yang mencuri perhatian." },
+      { id: "NMR-013", sku: "NMR-013", name: "LOEE REACH LOW WR", color: "WHITE - RED", category: "WANITA", stock: 18, price: 0, status: "TERSEDIA", image: "", description: "Sepatu LOEE REACH LOW WR varian warna WHITE - RED (Wanita). Gaya retro low-top ikonik dengan detail merah kontras." },
+      { id: "NMR-014", sku: "NMR-014", name: "LOEE REACH STAR BW", color: "BLUE - WHITE", category: "WANITA", stock: 8, price: 0, status: "TERSEDIA", image: "", description: "Sepatu LOEE REACH STAR BW varian warna BLUE - WHITE (Wanita). Detail aksen bintang klasik dengan kenyamanan pijakan maksimal." },
+      { id: "NMR-015", sku: "NMR-015", name: "LOEE REACH STAR WB", color: "WHITE - BLACK STAR", category: "WANITA", stock: 9, price: 0, status: "TERSEDIA", image: "", description: "Sepatu LOEE REACH STAR WB varian warna WHITE - BLACK STAR (Wanita). Monokrom trendi yang cocok untuk segala suasana." },
+      { id: "NMR-016", sku: "NMR-016", name: "LOEE REACH STAR", color: "WHITE - RED STAR", category: "WANITA", stock: 1, price: 0, status: "MENIPIS", image: "", description: "Sepatu LOEE REACH STAR varian warna WHITE - RED STAR (Wanita). Stok terbatas dengan detail bintang merah yang stylish." },
+      { id: "NMR-017", sku: "NMR-017", name: "MOMO SNEAKERS", color: "BLACK", category: "PRIA", stock: 7, price: 0, status: "TERSEDIA", image: "", description: "Sepatu MOMO SNEAKERS varian warna BLACK (Pria). Tampilan full-black elegan yang tahan kotor dan nyaman dipakai seharian." },
+      { id: "NMR-018", sku: "NMR-018", name: "OUXING CASUAL", color: "WHITE", category: "WANITA", stock: 8, price: 0, status: "TERSEDIA", image: "", description: "Sepatu OUXING CASUAL varian warna WHITE (Wanita). Desain modern ringan dengan material pilihan dari EULOGIA FOOTWEAR." },
+      { id: "NMR-019", sku: "NMR-019", name: "OXFORD CASUAL", color: "BLACK - KULIT", category: "PRIA", stock: 6, price: 0, status: "TERSEDIA", image: "", description: "Sepatu OXFORD CASUAL varian warna BLACK - KULIT (Pria). Nuansa kulit klasik yang rapi untuk kerja kantor maupun acara formal kasual." },
+      { id: "NMR-020", sku: "NMR-020", name: "RUNNING OUTDOOR", color: "BROWN", category: "PRIA", stock: 8, price: 0, status: "TERSEDIA", image: "", description: "Sepatu RUNNING OUTDOOR varian warna BROWN (Pria). Dirancang dengan grip kuat untuk lari ringan dan aktivitas luar ruangan." },
+      { id: "NMR-021", sku: "NMR-021", name: "SALOMON XA PRO", color: "WHITE - BLACK", category: "WANITA", stock: 6, price: 0, status: "TERSEDIA", image: "", description: "Sepatu SALOMON XA PRO varian warna WHITE - BLACK (Wanita). Siluet trail-running modern yang stabil dan tangguh." },
+      { id: "NMR-022", sku: "NMR-022", name: "SASTBY RUNNER", color: "GREY - BROWN", category: "PRIA", stock: 7, price: 0, status: "TERSEDIA", image: "", description: "Sepatu SASTBY RUNNER varian warna GREY - BROWN (Pria). Kombinasi warna earthy yang maskulin dengan bantalan empuk." },
+      { id: "NMR-023", sku: "NMR-023", name: "SKATE GREATSLIDES", color: "WHITE GREY BLACK", category: "WANITA", stock: 9, price: 0, status: "TERSEDIA", image: "", description: "Sepatu SKATE GREATSLIDES varian warna WHITE GREY BLACK (Wanita). Siluet skate chunky yang trendi dan kokoh." },
+      { id: "NMR-024", sku: "NMR-024", name: "SPORT QUENZO CB", color: "CREAM - BROWN", category: "WANITA", stock: 5, price: 0, status: "MENIPIS", image: "", description: "Sepatu SPORT QUENZO CB varian warna CREAM - BROWN (Wanita). Palet warna hangat kekinian yang ringan dan empuk." },
+      { id: "NMR-025", sku: "NMR-025", name: "SPORT QUENZO WB", color: "WHITE - BLUE", category: "WANITA", stock: 9, price: 0, status: "TERSEDIA", image: "", description: "Sepatu SPORT QUENZO WB varian warna WHITE - BLUE (Wanita). Sneakers sporty dengan sentuhan biru cerah yang energik." },
+      { id: "NMR-026", sku: "NMR-026", name: "SYSNEA SNEAKERS", color: "WHITE CREAM", category: "WANITA", stock: 6, price: 0, status: "TERSEDIA", image: "", description: "Sepatu SYSNEA SNEAKERS varian warna WHITE CREAM (Wanita). Gaya aesthetic minimalis dengan kenyamanan pijakan harian." },
+      { id: "NMR-027", sku: "NMR-027", name: "TAIUHO WHITE", color: "WHITE", category: "WANITA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu TAIUHO WHITE varian warna WHITE (Wanita). Sneakers putih bersih dengan potongan ramping yang mempermanis langkah." },
+      { id: "NMR-028", sku: "NMR-028", name: "TAIUHO BLUE", color: "WHITE BLUE", category: "WANITA", stock: 8, price: 0, status: "TERSEDIA", image: "", description: "Sepatu TAIUHO BLUE varian warna WHITE BLUE (Wanita). Perpaduan putih dan biru lembut untuk tampilan kasual segar." },
+      { id: "NMR-029", sku: "NMR-029", name: "TIMBERLAN MEN SIX", color: "BROWN BOOTS", category: "PRIA", stock: 6, price: 0, status: "TERSEDIA", image: "", description: "Sepatu TIMBERLAN MEN SIX varian warna BROWN BOOTS (Pria). Boots 6-inch ikonik berdaya tahan tinggi untuk tampilan gagah." },
+      { id: "NMR-030", sku: "NMR-030", name: "VIRTUS KINGSMAN", color: "BROWN SLIP", category: "PRIA", stock: 7, price: 0, status: "TERSEDIA", image: "", description: "Sepatu VIRTUS KINGSMAN varian warna BROWN SLIP (Pria). Desain slip-on elegan yang nyaman untuk bekerja maupun bepergian." },
+      { id: "NMR-031", sku: "NMR-031", name: "Y2K RETRO SNEAKERS", color: "GREEN", category: "WANITA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu Y2K RETRO SNEAKERS varian warna GREEN (Wanita). Nuansa retro era 2000-an dengan warna hijau statement." },
+      { id: "NMR-032", sku: "NMR-032", name: "YEEZY SAGE", color: "NEON GREEN", category: "WANITA", stock: 10, price: 0, status: "TERSEDIA", image: "", description: "Sepatu YEEZY SAGE varian warna NEON GREEN (Wanita). Upper rajut lentur yang mengikuti bentuk kaki dengan sol super ringan." },
+      { id: "NMR-033", sku: "NMR-033", name: "ZAPATILLAS", color: "BLUE - NEON - BLACK", category: "PRIA", stock: 8, price: 0, status: "TERSEDIA", image: "", description: "Sepatu ZAPATILLAS varian warna BLUE - NEON - BLACK (Pria). Desain dinamis beraksen neon untuk gaya sporty maksimal." },
+      { id: "NMR-034", sku: "NMR-034", name: "ZEODDA TOKYO BW LOW", color: "BLACK - ASVX", category: "WANITA", stock: 12, price: 0, status: "TERSEDIA", image: "", description: "Sepatu ZEODDA TOKYO BW LOW varian warna BLACK - ASVX (Wanita). Sneakers rendah berdesain modern dengan kenyamanan ekstra." },
+      { id: "NMR-035", sku: "NMR-035", name: "ZEODDA TOKYO", color: "BLACK - WHITE", category: "WANITA", stock: 9, price: 0, status: "TERSEDIA", image: "", description: "Sepatu ZEODDA TOKYO varian warna BLACK - WHITE (Wanita). Perpaduan monokrom klasik yang praktis untuk aktivitas padat." },
+      { id: "NMR-036", sku: "NMR-036", name: "ZEODDA TOKYO HIGH WHITE", color: "WHITE - ASVX", category: "WANITA", stock: 12, price: 0, status: "TERSEDIA", image: "", description: "Sepatu ZEODDA TOKYO HIGH WHITE varian warna WHITE - ASVX (Wanita). Potongan high-top putih bersih yang modis dan suportif." }
+    ];
+
+    // 2. APPLICATION STATE
+    const STORAGE_KEYS = {
+      PRODUCTS: 'eulogia_shoes_products_v1',
+      CART: 'eulogia_shoes_cart_v1',
+      SETTINGS: 'eulogia_shoes_settings_v1',
+      ADMIN_CRED: 'eulogia_admin_cred',
+      ADMIN_SESSION: 'eulogia_shoes_admin_active_v1',
+      ADMIN_ACTIVE_EMAIL: 'eulogia_shoes_admin_email_v1'
+    };
+
+    let state = {
+      products: [],
+      cart: [],
+      isAdmin: false,
+      activeAdminEmail: '',
+      firebaseReady: false,
+      db: null,
+      auth: null,
+      unsubscribeProducts: null,
+      unsubscribeSettings: null,
+      selectedDetailProduct: null,
+      selectedDetailImageIndex: 0,
+      selectedDetailSize: null,
+      selectedDetailQty: 1,
+      formImages: [],
+      settings: {
+        waNumber: '6282114710891',
+        waNumber2: '6281289217188',
+        tiktokUrl: 'https://www.tiktok.com/@eulogiashoes',
+        shopeeUrl: 'https://shopee.co.id/eulogiashoes',
+        firebaseConfigStr: ''
+      }
+    };
+
+    const MAX_PRODUCT_IMAGES = 8;
+
+    function getProductImages(product) {
+      if (!product) return [];
+      if (Array.isArray(product.images) && product.images.length > 0) {
+        const clean = product.images.filter(url => typeof url === 'string' && url.trim() !== '');
+        if (clean.length > 0) return clean;
+      }
+      if (typeof product.image === 'string' && product.image.trim() !== '') {
+        return [product.image.trim()];
+      }
+      return [];
+    }
+
+    function normalizeProductImages(product) {
+      const imgs = getProductImages(product);
+      return {
+        ...product,
+        images: imgs,
+        image: imgs[0] || ''
+      };
+    }
+
+    // 3. INITIALIZATION
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('current-year').textContent = new Date().getFullYear();
+      loadSettings();
+      loadProducts();
+      loadCart();
+      initFirebaseIfConfigured();
+      if (!isFirebaseAuthActive()) {
+        restoreAdminSession();
+      }
+      applyExternalLinks();
+      applyFilters();
+      renderCart();
+
+      // Close Header WA dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        const wrapper = document.getElementById('header-wa-dropdown-wrapper');
+        const menu = document.getElementById('header-wa-menu');
+        if (wrapper && menu && !wrapper.contains(e.target)) {
+          menu.classList.add('hidden');
+        }
+      });
+
+      // Touch swipe support on Product Detail Gallery
+      const detailVisual = document.getElementById('detail-visual');
+      if (detailVisual) {
+        let touchStartX = 0;
+        detailVisual.addEventListener('touchstart', (e) => {
+          if (e.changedTouches && e.changedTouches.length > 0) {
+            touchStartX = e.changedTouches[0].screenX;
+          }
+        }, { passive: true });
+        detailVisual.addEventListener('touchend', (e) => {
+          if (e.changedTouches && e.changedTouches.length > 0) {
+            const diffX = e.changedTouches[0].screenX - touchStartX;
+            if (Math.abs(diffX) > 40) {
+              if (diffX < 0) nextDetailImage();
+              else prevDetailImage();
+            }
+          }
+        }, { passive: true });
+      }
+    });
+
+    function toggleHeaderWaMenu(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById('header-wa-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function formatWaDisplay(waClean) {
+      const digits = (waClean || '').replace(/\D/g, '');
+      if (digits.startsWith('62') && digits.length >= 11) {
+        const local = digits.slice(2);
+        return `+62 ${local.slice(0, 3)}-${local.slice(3, 7)}-${local.slice(7)}`;
+      }
+      return digits ? `+${digits}` : '';
+    }
+
+    function loadSettings() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEYS.SETTINGS);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          // Ensure no legacy plaintext admin credentials remain in settings
+          delete parsed.adminEmail;
+          delete parsed.adminPass;
+          state.settings = { ...state.settings, ...parsed };
+        }
+      } catch (err) {
+        console.error('Gagal memuat pengaturan:', err);
+      }
+    }
+
+    function loadProducts() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            state.products = parsed.map(normalizeProductImages);
+            return;
+          }
+        }
+      } catch (err) {
+        console.error('Gagal memuat produk lokal:', err);
+      }
+      state.products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS)).map(normalizeProductImages);
+      saveProductsLocal();
+    }
+
+    function saveProductsLocal() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(state.products));
+      } catch (err) {
+        console.error('Gagal menyimpan produk ke localStorage:', err);
+        showToast('Penyimpanan browser penuh, gunakan URL gambar jika file terlalu besar.', 'error');
+      }
+    }
+
+    function loadCart() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEYS.CART);
+        if (saved) {
+          state.cart = JSON.parse(saved) || [];
+        }
+      } catch (err) {
+        state.cart = [];
+      }
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(state.cart));
+      } catch (err) {
+        console.error('Gagal menyimpan keranjang:', err);
+      }
+    }
+
+    function applyExternalLinks() {
+      const waClean1 = (state.settings.waNumber || '6282114710891').replace(/\D/g, '');
+      const waClean2 = (state.settings.waNumber2 || '6281289217188').replace(/\D/g, '');
+      const waDisplay1 = formatWaDisplay(waClean1);
+      const waDisplay2 = formatWaDisplay(waClean2);
+
+      // Header WA Dropdown Links
+      const headerWa1 = document.getElementById('header-wa-link-1');
+      if (headerWa1) {
+        headerWa1.href = `https://wa.me/${waClean1}?text=${encodeURIComponent('Halo Admin 1 EULOGIA FOOTWEAR, saya ingin tanya katalog sepatu.')}`;
+      }
+      const headerWaText1 = document.getElementById('header-wa-text-1');
+      if (headerWaText1) headerWaText1.textContent = waDisplay1;
+
+      const headerWa2 = document.getElementById('header-wa-link-2');
+      if (headerWa2) {
+        headerWa2.href = `https://wa.me/${waClean2}?text=${encodeURIComponent('Halo Admin 2 EULOGIA FOOTWEAR, saya ingin tanya katalog sepatu.')}`;
+      }
+      const headerWaText2 = document.getElementById('header-wa-text-2');
+      if (headerWaText2) headerWaText2.textContent = waDisplay2;
+
+      // Hero WA Buttons
+      const heroWa1 = document.getElementById('hero-wa-link-1');
+      if (heroWa1) {
+        heroWa1.href = `https://wa.me/${waClean1}?text=${encodeURIComponent('Halo Admin 1 EULOGIA FOOTWEAR, saya ingin konsultasi pesanan sepatu.')}`;
+      }
+      const heroWaLabel1 = document.getElementById('hero-wa-label-1');
+      if (heroWaLabel1) heroWaLabel1.textContent = `CS 1: ${waDisplay1}`;
+
+      const heroWa2 = document.getElementById('hero-wa-link-2');
+      if (heroWa2) {
+        heroWa2.href = `https://wa.me/${waClean2}?text=${encodeURIComponent('Halo Admin 2 EULOGIA FOOTWEAR, saya ingin konsultasi pesanan sepatu.')}`;
+      }
+      const heroWaLabel2 = document.getElementById('hero-wa-label-2');
+      if (heroWaLabel2) heroWaLabel2.textContent = `CS 2: ${waDisplay2}`;
+
+      // Footer WA Links
+      const footerWa1 = document.getElementById('footer-wa-link-1');
+      if (footerWa1) footerWa1.href = `https://wa.me/${waClean1}`;
+      const footerWaLabel1 = document.getElementById('footer-wa-label-1');
+      if (footerWaLabel1) footerWaLabel1.textContent = waDisplay1;
+
+      const footerWa2 = document.getElementById('footer-wa-link-2');
+      if (footerWa2) footerWa2.href = `https://wa.me/${waClean2}`;
+      const footerWaLabel2 = document.getElementById('footer-wa-label-2');
+      if (footerWaLabel2) footerWaLabel2.textContent = waDisplay2;
+
+      // Cart Drawer WA Radio Labels
+      const cartWaLabel1 = document.getElementById('cart-wa-label-1');
+      if (cartWaLabel1) cartWaLabel1.textContent = waDisplay1;
+      const cartWaLabel2 = document.getElementById('cart-wa-label-2');
+      if (cartWaLabel2) cartWaLabel2.textContent = waDisplay2;
+
+      // Terms Modal WA Buttons
+      const termsWa1 = document.getElementById('terms-wa-btn-1');
+      if (termsWa1) {
+        termsWa1.href = `https://wa.me/${waClean1}?text=${encodeURIComponent('Halo Admin 1 EULOGIA FOOTWEAR, saya ingin bertanya terkait ketentuan order / tukar size / retur.')}`;
+      }
+      const termsWa2 = document.getElementById('terms-wa-btn-2');
+      if (termsWa2) {
+        termsWa2.href = `https://wa.me/${waClean2}?text=${encodeURIComponent('Halo Admin 2 EULOGIA FOOTWEAR, saya ingin bertanya terkait ketentuan order / tukar size / retur.')}`;
+      }
+
+      ['header-tiktok-link', 'hero-tiktok-link', 'footer-tiktok-link'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && state.settings.tiktokUrl) el.href = state.settings.tiktokUrl;
+      });
+
+      ['header-shopee-link', 'hero-shopee-link', 'footer-shopee-link'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && state.settings.shopeeUrl) el.href = state.settings.shopeeUrl;
+      });
+    }
+
+    // 4. FIREBASE CLOUD INTEGRATION (OPTIONAL & REAL-TIME)
+    function isFirebaseAuthActive() {
+      return Boolean(state.firebaseReady && state.auth);
+    }
+    const PERMANENT_FIREBASE_CONFIG = {
+      apiKey: "AIzaSyBY4sj0SzBfX99imBk6_j4bOaCWnbxQO4c",
+      authDomain: "eulogia-shoes.firebaseapp.com",
+      projectId: "eulogia-shoes",
+      storageBucket: "eulogia-shoes.firebasestorage.app",
+      messagingSenderId: "1067478758651",
+      appId: "1:1067478758651:web:deaae536cc8ea0d197ac5e"
+    };
+
+    function initFirebaseIfConfigured() {
+      const cfgStr = (state.settings.firebaseConfigStr || '').trim();
+      let configObj = PERMANENT_FIREBASE_CONFIG;
+
+      if (cfgStr) {
+        try {
+          configObj = JSON.parse(cfgStr);
+        } catch (e) {
+          configObj = PERMANENT_FIREBASE_CONFIG;
+        }
+      }
+
+      try {
+        if (!configObj || !configObj.apiKey || !configObj.projectId) {
+          state.firebaseReady = false;
+          state.db = null;
+          state.auth = null;
+          updateDbModeBadge(false);
+          return;
+        }
+        if (!firebase.apps.length) {
+          firebase.initializeApp(configObj);
+        }
+        state.db = firebase.firestore();
+        state.auth = firebase.auth();
+        state.firebaseReady = true;
+        updateDbModeBadge(true);
+
+        // Enforce server-side Firebase Authentication state & auto-seed Firestore if empty
+        state.auth.onAuthStateChanged(async user => {
+          if (user) {
+            setAdminMode(true, user.email || '');
+            try {
+              const existingSnap = await state.db.collection('eulogia_products').limit(1).get();
+              if (existingSnap.empty && state.products.length > 0) {
+                const batch = state.db.batch();
+                state.products.forEach(p => {
+                  const ref = state.db.collection('eulogia_products').doc(p.sku);
+                  batch.set(ref, p);
+                });
+                await batch.commit();
+              }
+            } catch (seedErr) {
+              console.warn('Auto-seed Firestore saat login admin:', seedErr);
+            }
+          } else {
+            setAdminMode(false, '');
+          }
+        });
+
+        // Unsubscribe previous listeners if re-initializing
+        if (typeof state.unsubscribeProducts === 'function') {
+          state.unsubscribeProducts();
+        }
+        if (typeof state.unsubscribeSettings === 'function') {
+          state.unsubscribeSettings();
+        }
+
+        // Listen for real-time Firestore product updates across all visitors & devices
+        state.unsubscribeProducts = state.db.collection('eulogia_products').orderBy('sku').onSnapshot(snapshot => {
+          if (!snapshot.empty) {
+            const cloudList = [];
+            snapshot.forEach(doc => cloudList.push(normalizeProductImages({ id: doc.id, ...doc.data() })));
+            state.products = cloudList;
+            saveProductsLocal();
+            applyFilters();
+          } else if (state.isAdmin && state.products.length > 0) {
+            const batch = state.db.batch();
+            state.products.forEach(p => {
+              const ref = state.db.collection('eulogia_products').doc(p.sku);
+              batch.set(ref, p);
+            });
+            batch.commit().catch(e => console.warn('Seed Firestore skipped:', e));
+          }
+        }, err => {
+          console.warn('Firestore listener fallback to local:', err);
+          updateDbModeBadge(false);
+        });
+
+        // Optional real-time sync for store contact & social links
+        state.unsubscribeSettings = state.db.collection('eulogia_settings').doc('store').onSnapshot(docSnap => {
+          if (docSnap.exists) {
+            const cloudSettings = docSnap.data() || {};
+            if (cloudSettings.waNumber) state.settings.waNumber = cloudSettings.waNumber;
+            if (cloudSettings.waNumber2) state.settings.waNumber2 = cloudSettings.waNumber2;
+            if (cloudSettings.tiktokUrl) state.settings.tiktokUrl = cloudSettings.tiktokUrl;
+            if (cloudSettings.shopeeUrl) state.settings.shopeeUrl = cloudSettings.shopeeUrl;
+            localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));
+            applyExternalLinks();
+          }
+        }, () => {});
+      } catch (err) {
+        console.error('Konfigurasi Firebase tidak valid:', err);
+        updateDbModeBadge(false);
+      }
+    }
+
+    function updateDbModeBadge(isCloud) {
+      const badge = document.getElementById('db-mode-badge');
+      if (!badge) return;
+      if (isCloud) {
+        badge.textContent = 'Firebase Cloud Aktif';
+        badge.className = 'px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[11px] font-bold';
+      } else {
+        badge.textContent = 'Penyimpanan Lokal';
+        badge.className = 'px-2 py-0.5 rounded-full bg-charcoal-900/15 text-charcoal-950 text-[11px] font-bold';
+      }
+    }
+
+    // 5. CUSTOM SVG SHOE ILLUSTRATION GENERATOR
+    function parseShoeColors(colorStr) {
+      const upper = (colorStr || '').toUpperCase();
+      const paletteMap = [
+        { key: 'NEON GREEN', hex: '#84cc16' },
+        { key: 'NEON', hex: '#a3e635' },
+        { key: 'TOSCA', hex: '#14b8a6' },
+        { key: 'LIGHT BLUE', hex: '#38bdf8' },
+        { key: 'BLUE', hex: '#2563eb' },
+        { key: 'RED', hex: '#dc2626' },
+        { key: 'ORANGE', hex: '#f97316' },
+        { key: 'GREEN', hex: '#16a34a' },
+        { key: 'BROWN', hex: '#78350f' },
+        { key: 'CREAM', hex: '#fef3c7' },
+        { key: 'SILVER', hex: '#cbd5e1' },
+        { key: 'GREY', hex: '#64748b' },
+        { key: 'BLACK', hex: '#1e293b' },
+        { key: 'WHITE', hex: '#f8fafc' }
+      ];
+
+      const found = [];
+      paletteMap.forEach(item => {
+        if (upper.includes(item.key) && !found.includes(item.hex)) {
+          found.push(item.hex);
+        }
+      });
+
+      const primary = found[0] || '#f8fafc';
+      const secondary = found[1] || (primary === '#f8fafc' ? '#334155' : '#f59e0b');
+      const accent = found[2] || '#f59e0b';
+      const isLightPrimary = ['#f8fafc', '#fef3c7', '#cbd5e1', '#a3e635'].includes(primary);
+      const stroke = isLightPrimary ? '#334155' : '#0f172a';
+
+      return { primary, secondary, accent, stroke, isLightPrimary };
+    }
+
+    function generateShoeSVG(product) {
+      const name = (product.name || '').toUpperCase();
+      const { primary, secondary, accent, stroke } = parseShoeColors(product.color);
+      const uid = (product.sku || 'SHOE').replace(/[^a-zA-Z0-9]/g, '');
+
+      // Determine Silhouette Type
+      const isBoot = name.includes('BOOTS') || name.includes('TIMBERLAN');
+      const isHighTop = name.includes('HIGH');
+      const isSlipOn = name.includes('SLIP') || name.includes('OXFORD') || name.includes('VIRTUS');
+      const isRunner = name.includes('RUN') || name.includes('SPORT') || name.includes('SALOMON') || name.includes('SASTBY') || name.includes('YEEZY') || name.includes('ZAPATILLAS');
+
+      if (isBoot) {
+        return `
+          <svg viewBox="0 0 260 180" class="w-full h-full drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad-${uid}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${primary}" />
+                <stop offset="100%" stop-color="${secondary}" stop-opacity="0.85" />
+              </linearGradient>
+            </defs>
+            <!-- Ground Shadow -->
+            <ellipse cx="132" cy="156" rx="95" ry="9" fill="#e2e8f0" />
+            <!-- Lugged Outsole -->
+            <path d="M46 136 L216 136 L214 148 L198 148 L195 144 L184 144 L181 148 L165 148 L162 144 L150 144 L147 148 L112 148 L108 143 L92 143 L88 148 L48 148 Z" fill="#1e293b" />
+            <!-- Boot Upper -->
+            <path d="M54 136 L58 44 Q82 38 104 46 L118 88 Q155 92 195 106 Q216 114 215 136 Z" fill="url(#grad-${uid})" stroke="${stroke}" stroke-width="2.5" stroke-linejoin="round" />
+            <!-- Padded Collar -->
+            <path d="M56 44 Q82 36 105 45 L108 57 Q82 50 55 56 Z" fill="#0f172a" />
+            <!-- Side Panel & Eyelets -->
+            <path d="M98 62 L116 94 L145 118 L102 126 L76 92 Z" fill="${secondary}" fill-opacity="0.35" />
+            <circle cx="105" cy="66" r="2.5" fill="#fbbf24" />
+            <circle cx="112" cy="78" r="2.5" fill="#fbbf24" />
+            <circle cx="120" cy="90" r="2.5" fill="#fbbf24" />
+            <circle cx="131" cy="100" r="2.5" fill="#fbbf24" />
+          </svg>
+        `;
+      }
+
+      if (isHighTop) {
+        return `
+          <svg viewBox="0 0 260 180" class="w-full h-full drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="132" cy="156" rx="96" ry="9" fill="#e2e8f0" />
+            <!-- Classic Cup Sole -->
+            <path d="M44 132 L218 132 Q220 146 206 147 L52 147 Q42 146 44 132 Z" fill="#ffffff" stroke="${stroke}" stroke-width="2.2" />
+            <line x1="46" y1="139" x2="216" y2="139" stroke="${secondary}" stroke-width="2" />
+            <!-- High-Top Upper -->
+            <path d="M50 132 L56 48 Q84 44 106 52 L124 88 Q166 94 204 108 Q220 116 218 132 Z" fill="${primary}" stroke="${stroke}" stroke-width="2.4" stroke-linejoin="round" />
+            <!-- Toe Cap -->
+            <path d="M182 103 Q218 112 218 132 L176 132 Z" fill="#ffffff" stroke="${stroke}" stroke-width="2" />
+            <!-- Ankle Star Patch -->
+            <circle cx="82" cy="76" r="12" fill="${secondary}" />
+            <polygon points="82,67 84.5,73 91,73 86,77 88,83 82,79 76,83 78,77 73,73 79.5,73" fill="${accent}" />
+          </svg>
+        `;
+      }
+
+      if (isSlipOn) {
+        return `
+          <svg viewBox="0 0 260 180" class="w-full h-full drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="132" cy="154" rx="95" ry="9" fill="#e2e8f0" />
+            <!-- Low Dress/Casual Sole -->
+            <path d="M42 130 L220 130 L218 142 L105 142 L100 138 L82 138 L80 144 L44 144 Z" fill="#1e293b" />
+            <!-- Sleek Slip-On / Oxford Body -->
+            <path d="M46 130 L50 86 Q76 96 106 84 Q124 76 140 82 Q178 96 214 112 Q223 120 220 130 Z" fill="${primary}" stroke="${stroke}" stroke-width="2.4" stroke-linejoin="round" />
+            <!-- Vamp Strap / Accent -->
+            <path d="M118 82 Q132 104 126 130 L144 130 Q148 104 138 82 Z" fill="${secondary}" />
+            <path d="M168 95 Q186 112 184 130" fill="none" stroke="${stroke}" stroke-width="1.8" stroke-dasharray="4 3" />
+          </svg>
+        `;
+      }
+
+      if (isRunner) {
+        return `
+          <svg viewBox="0 0 260 180" class="w-full h-full drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="132" cy="155" rx="98" ry="9" fill="#e2e8f0" />
+            <!-- Sculpted Cushioned Midsole -->
+            <path d="M36 128 Q90 134 150 130 L222 126 Q226 142 208 145 L46 146 Q32 144 36 128 Z" fill="#ffffff" stroke="${stroke}" stroke-width="2.2" />
+            <path d="M48 136 Q95 140 138 136 L134 142 Q92 145 46 142 Z" fill="${accent}" />
+            <!-- Aerodynamic Runner Upper -->
+            <path d="M42 128 L52 78 Q78 92 108 74 Q126 66 142 78 Q176 96 216 110 Q225 117 222 126 Z" fill="${primary}" stroke="${stroke}" stroke-width="2.4" stroke-linejoin="round" />
+            <!-- Dynamic Speed Stripes -->
+            <path d="M88 124 L118 84 L132 86 L104 125 Z" fill="${secondary}" />
+            <path d="M112 125 L138 89 L150 92 L126 125 Z" fill="${accent}" />
+            <!-- Heel Stabilizer -->
+            <path d="M42 128 L49 94 Q64 102 68 128 Z" fill="${secondary}" opacity="0.85" />
+          </svg>
+        `;
+      }
+
+      // Classic Court / Street Sneakers (Default)
+      return `
+        <svg viewBox="0 0 260 180" class="w-full h-full drop-shadow-sm" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="132" cy="155" rx="96" ry="9" fill="#e2e8f0" />
+          <!-- Platform / Street Rubber Sole -->
+          <path d="M42 128 L220 128 Q222 145 206 146 L50 146 Q40 145 42 128 Z" fill="#ffffff" stroke="${stroke}" stroke-width="2.2" />
+          <line x1="44" y1="137" x2="218" y2="137" stroke="#cbd5e1" stroke-width="1.8" />
+          <!-- Sneaker Upper -->
+          <path d="M46 128 L52 78 Q78 92 108 74 Q124 68 138 78 Q174 96 212 108 Q222 115 220 128 Z" fill="${primary}" stroke="${stroke}" stroke-width="2.4" stroke-linejoin="round" />
+          <!-- Side Overlay Swoosh / Panel -->
+          <path d="M74 108 Q115 116 158 92 Q132 122 72 118 Z" fill="${secondary}" />
+          <!-- Heel Tab -->
+          <path d="M49 94 L52 78 Q66 84 72 82 L64 98 Z" fill="${secondary}" />
+          <!-- Laces -->
+          <line x1="124" y1="78" x2="136" y2="73" stroke="${accent}" stroke-width="3" stroke-linecap="round" />
+          <line x1="134" y1="84" x2="146" y2="79" stroke="${accent}" stroke-width="3" stroke-linecap="round" />
+          <line x1="145" y1="90" x2="157" y2="85" stroke="${accent}" stroke-width="3" stroke-linecap="round" />
+        </svg>
+      `;
+    }
+
+    // 6. FILTERING & RENDERING CATALOG GRID
+    function applyFilters() {
+      const searchVal = (document.getElementById('search-input').value || '').trim().toLowerCase();
+      const categoryVal = document.getElementById('filter-category').value;
+      const statusVal = document.getElementById('filter-status').value;
+      const priceVal = document.getElementById('filter-price').value;
+
+      // Toggle clear search button & reset filter button
+      const clearBtn = document.getElementById('clear-search-btn');
+      if (clearBtn) clearBtn.classList.toggle('hidden', searchVal.length === 0);
+
+      const hasActiveFilter = searchVal !== '' || categoryVal !== 'ALL' || statusVal !== 'ALL' || priceVal !== 'ALL';
+      const resetBtn = document.getElementById('reset-filter-btn');
+      if (resetBtn) {
+        resetBtn.classList.toggle('hidden', !hasActiveFilter);
+        resetBtn.classList.toggle('inline-flex', hasActiveFilter);
+      }
+
+      const filtered = state.products.filter(p => {
+        // Search query match (Name, SKU, Color, Category)
+        const matchSearch = !searchVal ||
+          (p.name || '').toLowerCase().includes(searchVal) ||
+          (p.sku || '').toLowerCase().includes(searchVal) ||
+          (p.color || '').toLowerCase().includes(searchVal) ||
+          (p.category || '').toLowerCase().includes(searchVal);
+
+        // Category match
+        const matchCat = categoryVal === 'ALL' || (p.category || '').toUpperCase() === categoryVal;
+
+        // Status match
+        const currentStatus = getComputedStatus(p);
+        const matchStatus = statusVal === 'ALL' || currentStatus === statusVal;
+
+        // Price range match
+        const price = Number(p.price) || 0;
+        let matchPrice = true;
+        if (priceVal === 'ASK') matchPrice = price === 0;
+        else if (priceVal === 'UNDER_200') matchPrice = price > 0 && price < 200000;
+        else if (priceVal === '200_350') matchPrice = price >= 200000 && price <= 350000;
+        else if (priceVal === 'ABOVE_350') matchPrice = price > 350000;
+
+        return matchSearch && matchCat && matchStatus && matchPrice;
+      });
+
+      // Update counters
+      document.getElementById('visible-count').textContent = filtered.length;
+      document.getElementById('total-count').textContent = state.products.length;
+      document.getElementById('stat-total-models').textContent = state.products.length;
+
+      const totalPairs = state.products.reduce((sum, item) => sum + (Number(item.stock) || 0), 0);
+      document.getElementById('stat-total-stock').textContent = totalPairs;
+
+      renderProductGrid(filtered);
+    }
+
+    function getComputedStatus(product) {
+      if (Number(product.stock) <= 0 || product.status === 'HABIS') return 'HABIS';
+      if (product.status === 'MENIPIS' || Number(product.stock) <= 5) return 'MENIPIS';
+      return 'TERSEDIA';
+    }
+
+    function formatRupiah(amount) {
+      const num = Number(amount) || 0;
+      if (num <= 0) return 'Tanya Admin';
+      return 'Rp ' + num.toLocaleString('id-ID');
+    }
+
+    function renderProductGrid(list) {
+      const grid = document.getElementById('product-grid');
+      const emptyState = document.getElementById('empty-state');
+
+      if (!list.length) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.innerHTML = list.map(product => {
+        const status = getComputedStatus(product);
+        let statusBadgeClass = 'bg-emerald-500/15 text-emerald-700 border-emerald-500/30';
+        if (status === 'MENIPIS') statusBadgeClass = 'bg-amber-500/15 text-amber-800 border-amber-500/30';
+        if (status === 'HABIS') statusBadgeClass = 'bg-rose-500/15 text-rose-700 border-rose-500/30';
+
+        const catBadgeClass = product.category === 'PRIA'
+          ? 'bg-slate-800 text-white'
+          : 'bg-amber-100 text-amber-900 border border-amber-300';
+
+        const productImages = getProductImages(product);
+        const primaryImage = productImages[0] || '';
+        const photoCountBadge = productImages.length > 1
+          ? `<span class="absolute bottom-2 right-2 px-2 py-0.5 rounded-md bg-charcoal-900/80 text-white text-[10px] font-bold flex items-center gap-1 shadow-xs z-10 pointer-events-none">
+               <i class="fa-regular fa-images text-amber-400"></i>
+               <span>${productImages.length} Foto</span>
+             </span>`
+          : '';
+
+        const visualContent = primaryImage
+          ? `<img src="${primaryImage}" alt="${product.name}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+             <div style="display:none;" class="w-full h-full">${generateShoeSVG(product)}</div>`
+          : `<div class="w-full h-full group-hover:scale-105 transition-transform duration-300">${generateShoeSVG(product)}</div>`;
+
+        const adminControls = state.isAdmin ? `
+          <div class="grid grid-cols-2 gap-1.5 pt-2 mt-2 border-t border-slate-100" onclick="event.stopPropagation()">
+            <button
+              type="button"
+              onclick="openProductFormModal('${product.id}')"
+              class="py-1.5 px-2 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 text-[11px] font-bold flex items-center justify-center gap-1 transition-colors"
+            >
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Edit</span>
+            </button>
+            <button
+              type="button"
+              onclick="confirmDeleteProduct('${product.id}')"
+              class="py-1.5 px-2 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 text-[11px] font-bold flex items-center justify-center gap-1 transition-colors"
+            >
+              <i class="fa-solid fa-trash-can"></i>
+              <span>Hapus</span>
+            </button>
+          </div>
+        ` : '';
+
+        return `
+          <article
+            onclick="openDetailModal('${product.id}')"
+            class="group bg-white rounded-2xl border border-slate-200/90 hover:border-amber-400 shadow-xs hover:shadow-xl transition-all duration-200 overflow-hidden flex flex-col cursor-pointer"
+          >
+            <!-- Top Visual Area -->
+            <div class="relative aspect-[4/3] bg-gradient-to-b from-slate-50 to-slate-100/80 p-3 flex items-center justify-center border-b border-slate-100 overflow-hidden">
+              <!-- SKU & Gender Badges -->
+              <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1 z-10 pointer-events-none">
+                <span class="px-2 py-0.5 rounded-md bg-charcoal-900/90 text-amber-400 font-display text-[10px] sm:text-xs font-bold shadow-xs">
+                  ${product.sku}
+                </span>
+                <span class="px-2 py-0.5 rounded-md ${catBadgeClass} text-[10px] font-bold uppercase tracking-wide">
+                  ${product.category}
+                </span>
+              </div>
+
+              ${visualContent}
+              ${photoCountBadge}
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-3 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5">
+              <div>
+                <h3 class="font-display font-bold text-xs sm:text-sm md:text-base text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-1" title="${product.name}">
+                  ${product.name}
+                </h3>
+                <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5 line-clamp-1">
+                  <i class="fa-solid fa-palette text-[10px] text-slate-400 mr-1"></i>${product.color}
+                </p>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center justify-between gap-1">
+                  <span class="font-display font-bold text-xs sm:text-sm text-amber-600">
+                    ${formatRupiah(product.price)}
+                  </span>
+                  <span class="px-2 py-0.5 rounded-md border text-[10px] font-bold ${statusBadgeClass}">
+                    ${status}
+                  </span>
+                </div>
+
+                <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1.5 border-t border-slate-100">
+                  <span>Stok: <strong class="text-slate-800">${product.stock}</strong> psg</span>
+                  <span class="text-amber-600 font-semibold group-hover:translate-x-0.5 transition-transform">
+                    Detail <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                  </span>
+                </div>
+
+                ${adminControls}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // 7. FILTER RESET & SYARAT KETENTUAN MODAL HELPERS
+    function clearSearch() {
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) {
+        searchInput.value = '';
+        applyFilters();
+        searchInput.focus();
+      }
+    }
+
+    function resetAllFilters() {
+      const searchInput = document.getElementById('search-input');
+      const catSelect = document.getElementById('filter-category');
+      const statusSelect = document.getElementById('filter-status');
+      const priceSelect = document.getElementById('filter-price');
+
+      if (searchInput) searchInput.value = '';
+      if (catSelect) catSelect.value = 'ALL';
+      if (statusSelect) statusSelect.value = 'ALL';
+      if (priceSelect) priceSelect.value = 'ALL';
+
+      applyFilters();
+    }
+
+    function openTermsModal(defaultTab = 'cara-pesan') {
+      const modal = document.getElementById('terms-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      switchTermsTab(defaultTab);
+    }
+
+    function closeTermsModal() {
+      const modal = document.getElementById('terms-modal');
+      if (modal) modal.classList.add('hidden');
+      if (document.getElementById('detail-modal').classList.contains('hidden')) {
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+
+    function switchTermsTab(tabName) {
+      document.querySelectorAll('.terms-tab-btn').forEach(btn => {
+        const isActive = btn.getAttribute('data-tab') === tabName;
+        if (isActive) {
+          btn.className = 'terms-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs sm:text-sm font-bold whitespace-nowrap border-b-2 bg-white text-charcoal-900 border-amber-500 shadow-2xs transition-all';
+        } else {
+          btn.className = 'terms-tab-btn px-3.5 py-2.5 rounded-t-xl text-xs sm:text-sm font-bold whitespace-nowrap border-b-2 border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-200/60 transition-all';
+        }
+      });
+
+      document.querySelectorAll('.terms-tab-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+      const activePanel = document.getElementById(`tab-content-${tabName}`);
+      if (activePanel) activePanel.classList.remove('hidden');
+    }
+
+    // 8. PRODUCT DETAIL MODAL (WITH MULTI-PHOTO GALLERY)
+    function openDetailModal(productId) {
+      const product = state.products.find(p => p.id === productId);
+      if (!product) return;
+
+      state.selectedDetailProduct = product;
+      state.selectedDetailImageIndex = 0;
+      state.selectedDetailQty = 1;
+
+      const availableSizes = product.category === 'WANITA'
+        ? ['36', '37', '38', '39', '40']
+        : ['39', '40', '41', '42', '43', '44'];
+      state.selectedDetailSize = availableSizes[0];
+
+      document.getElementById('detail-sku').textContent = product.sku;
+      document.getElementById('detail-category').textContent = product.category;
+      document.getElementById('detail-name').textContent = product.name;
+      document.getElementById('detail-color').textContent = product.color;
+      document.getElementById('detail-price').textContent = formatRupiah(product.price);
+      document.getElementById('detail-stock').textContent = product.stock;
+      document.getElementById('detail-desc').textContent = product.description || `Sepatu ${product.name} (${product.color}) koleksi resmi EULOGIA FOOTWEAR.`;
+      document.getElementById('detail-qty').textContent = '1';
+
+      const status = getComputedStatus(product);
+      const statusEl = document.getElementById('detail-status');
+      statusEl.textContent = status;
+      if (status === 'TERSEDIA') {
+        statusEl.className = 'px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-500/15 text-emerald-700';
+      } else if (status === 'MENIPIS') {
+        statusEl.className = 'px-2 py-0.5 rounded-md text-xs font-bold bg-amber-500/15 text-amber-800';
+      } else {
+        statusEl.className = 'px-2 py-0.5 rounded-md text-xs font-bold bg-rose-500/15 text-rose-700';
+      }
+
+      const addBtn = document.getElementById('detail-add-cart-btn');
+      if (status === 'HABIS' || Number(product.stock) <= 0) {
+        addBtn.disabled = true;
+        addBtn.className = 'flex-1 py-3 px-5 rounded-xl bg-slate-300 text-slate-500 font-bold text-sm cursor-not-allowed flex items-center justify-center gap-2';
+        addBtn.innerHTML = '<i class="fa-solid fa-ban"></i><span>Stok Habis</span>';
+      } else {
+        addBtn.disabled = false;
+        addBtn.className = 'flex-1 py-3 px-5 rounded-xl bg-charcoal-900 hover:bg-charcoal-800 text-amber-400 font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2 active:scale-95';
+        addBtn.innerHTML = '<i class="fa-solid fa-cart-plus"></i><span>Tambah ke Keranjang</span>';
+      }
+
+      renderDetailGallery();
+      renderDetailSizes(availableSizes);
+
+      document.getElementById('detail-modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function renderDetailGallery() {
+      const product = state.selectedDetailProduct;
+      if (!product) return;
+
+      const images = getProductImages(product);
+      const visualEl = document.getElementById('detail-visual');
+      const counterEl = document.getElementById('detail-photo-counter');
+      const prevBtn = document.getElementById('detail-prev-img-btn');
+      const nextBtn = document.getElementById('detail-next-img-btn');
+      const thumbStrip = document.getElementById('detail-thumbnails');
+
+      if (images.length === 0) {
+        visualEl.innerHTML = `<div class="w-full h-full flex items-center justify-center">${generateShoeSVG(product)}</div>`;
+        counterEl.classList.add('hidden');
+        prevBtn.classList.add('hidden');
+        nextBtn.classList.add('hidden');
+        thumbStrip.classList.add('hidden');
+        return;
+      }
+
+      if (state.selectedDetailImageIndex >= images.length) {
+        state.selectedDetailImageIndex = 0;
+      }
+      const activeUrl = images[state.selectedDetailImageIndex];
+
+      visualEl.innerHTML = `
+        <img
+          src="${activeUrl}"
+          alt="${product.name} - Foto ${state.selectedDetailImageIndex + 1}"
+          class="w-full h-full object-contain rounded-lg transition-all duration-200"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div style="display:none;" class="w-full h-full items-center justify-center">${generateShoeSVG(product)}</div>
+      `;
+
+      if (images.length > 1) {
+        counterEl.textContent = `${state.selectedDetailImageIndex + 1} / ${images.length}`;
+        counterEl.classList.remove('hidden');
+        prevBtn.classList.remove('hidden');
+        nextBtn.classList.remove('hidden');
+        thumbStrip.classList.remove('hidden');
+
+        thumbStrip.innerHTML = images.map((url, idx) => {
+          const isSelected = idx === state.selectedDetailImageIndex;
+          const borderClass = isSelected
+            ? 'border-amber-500 ring-2 ring-amber-500/40 scale-105'
+            : 'border-slate-300 opacity-70 hover:opacity-100';
+          return `
+            <button
+              type="button"
+              onclick="selectDetailImage(${idx})"
+              class="w-14 h-12 rounded-lg bg-white border-2 ${borderClass} overflow-hidden p-1 shrink-0 transition-all"
+              title="Lihat foto ${idx + 1}"
+            >
+              <img src="${url}" alt="Thumb ${idx + 1}" class="w-full h-full object-contain" />
+            </button>
+          `;
+        }).join('');
+      } else {
+        counterEl.classList.add('hidden');
+        prevBtn.classList.add('hidden');
+        nextBtn.classList.add('hidden');
+        thumbStrip.classList.add('hidden');
+      }
+    }
+
+    function selectDetailImage(idx) {
+      state.selectedDetailImageIndex = idx;
+      renderDetailGallery();
+    }
+
+    function prevDetailImage() {
+      const product = state.selectedDetailProduct;
+      if (!product) return;
+      const images = getProductImages(product);
+      if (images.length <= 1) return;
+      state.selectedDetailImageIndex = (state.selectedDetailImageIndex - 1 + images.length) % images.length;
+      renderDetailGallery();
+    }
+
+    function nextDetailImage() {
+      const product = state.selectedDetailProduct;
+      if (!product) return;
+      const images = getProductImages(product);
+      if (images.length <= 1) return;
+      state.selectedDetailImageIndex = (state.selectedDetailImageIndex + 1) % images.length;
+      renderDetailGallery();
+    }
+
+    function renderDetailSizes(sizesList) {
+      const container = document.getElementById('detail-sizes');
+      container.innerHTML = sizesList.map(size => {
+        const isSelected = state.selectedDetailSize === size;
+        const activeClass = isSelected
+          ? 'bg-charcoal-900 text-amber-400 border-charcoal-900 shadow-sm'
+          : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-300';
+        return `
+          <button
+            type="button"
+            onclick="selectDetailSize('${size}')"
+            class="min-w-[44px] px-3 py-2 rounded-xl border text-xs sm:text-sm font-bold transition-all ${activeClass}"
+          >
+            ${size}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectDetailSize(size) {
+      state.selectedDetailSize = size;
+      const product = state.selectedDetailProduct;
+      const availableSizes = product && product.category === 'WANITA'
+        ? ['36', '37', '38', '39', '40']
+        : ['39', '40', '41', '42', '43', '44'];
+      renderDetailSizes(availableSizes);
+    }
+
+    function changeDetailQty(delta) {
+      const product = state.selectedDetailProduct;
+      if (!product) return;
+      const maxStock = Math.max(1, Number(product.stock) || 1);
+      const nextQty = state.selectedDetailQty + delta;
+      if (nextQty >= 1 && nextQty <= maxStock) {
+        state.selectedDetailQty = nextQty;
+        document.getElementById('detail-qty').textContent = String(nextQty);
+      }
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('detail-modal');
+      if (modal) modal.classList.add('hidden');
+      if (document.getElementById('terms-modal').classList.contains('hidden')) {
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+
+    // 9. SHOPPING CART & WHATSAPP CHECKOUT
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById('cart-drawer');
+      const backdrop = document.getElementById('cart-drawer-backdrop');
+      if (!drawer || !backdrop) return;
+
+      if (open) {
+        backdrop.classList.remove('hidden');
+        drawer.classList.remove('translate-x-full');
+        document.body.classList.add('overflow-hidden');
+      } else {
+        backdrop.classList.add('hidden');
+        drawer.classList.add('translate-x-full');
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+
+    function addCurrentProductToCart() {
+      const product = state.selectedDetailProduct;
+      if (!product) return;
+      if (getComputedStatus(product) === 'HABIS' || Number(product.stock) <= 0) {
+        showToast('Maaf, stok sepatu ini sedang habis.', 'error');
+        return;
+      }
+
+      const size = state.selectedDetailSize || '40';
+      const qty = state.selectedDetailQty || 1;
+      const existingIdx = state.cart.findIndex(item => item.productId === product.id && item.size === size);
+
+      if (existingIdx > -1) {
+        const maxStock = Number(product.stock) || 99;
+        state.cart[existingIdx].qty = Math.min(maxStock, state.cart[existingIdx].qty + qty);
+      } else {
+        const imgs = getProductImages(product);
+        state.cart.push({
+          productId: product.id,
+          sku: product.sku,
+          name: product.name,
+          color: product.color,
+          price: Number(product.price) || 0,
+          image: imgs[0] || '',
+          size,
+          qty
+        });
+      }
+
+      saveCart();
+      renderCart();
+      closeDetailModal();
+      toggleCartDrawer(true);
+      showToast(`${product.name} (Size ${size}) ditambahkan ke keranjang.`, 'success');
+    }
+
+    function updateCartItemQty(index, delta) {
+      const item = state.cart[index];
+      if (!item) return;
+      const prod = state.products.find(p => p.id === item.productId);
+      const maxStock = prod ? Math.max(1, Number(prod.stock) || 1) : 99;
+      const nextQty = item.qty + delta;
+
+      if (nextQty <= 0) {
+        removeCartItem(index);
+        return;
+      }
+      if (nextQty > maxStock) {
+        showToast(`Maksimal stok tersedia ${maxStock} pasang.`, 'info');
+        return;
+      }
+      item.qty = nextQty;
+      saveCart();
+      renderCart();
+    }
+
+    function removeCartItem(index) {
+      state.cart.splice(index, 1);
+      saveCart();
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items-container');
+      const footer = document.getElementById('cart-footer');
+      const badge = document.getElementById('cart-badge');
+      const totalPriceEl = document.getElementById('cart-total-price');
+
+      const totalItems = state.cart.reduce((sum, item) => sum + item.qty, 0);
+      if (badge) badge.textContent = String(totalItems);
+
+      if (state.cart.length === 0) {
+        container.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center py-12 px-4">
+            <div class="w-16 h-16 rounded-2xl bg-slate-200/80 text-slate-400 flex items-center justify-center text-2xl mb-3">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <h4 class="font-display font-bold text-slate-800 text-base">Keranjang Masih Kosong</h4>
+            <p class="text-xs text-slate-500 mt-1 max-w-xs">
+              Pilih model sepatu favoritmu di katalog, tentukan ukuran (EU), lalu masukkan ke keranjang untuk memesan via WhatsApp.
+            </p>
+          </div>
+        `;
+        footer.classList.add('hidden');
+        return;
+      }
+
+      footer.classList.remove('hidden');
+
+      let subtotal = 0;
+      let hasAskPrice = false;
+
+      container.innerHTML = state.cart.map((item, idx) => {
+        const linePrice = (Number(item.price) || 0) * item.qty;
+        subtotal += linePrice;
+        if (!item.price || Number(item.price) <= 0) hasAskPrice = true;
+
+        const prod = state.products.find(p => p.id === item.productId) || item;
+        const thumbHtml = item.image
+          ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-contain" />`
+          : generateShoeSVG(prod);
+
+        return `
+          <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-2xs flex items-center gap-3">
+            <div class="w-16 h-16 rounded-xl bg-slate-50 border border-slate-100 p-1.5 flex items-center justify-center shrink-0 overflow-hidden">
+              ${thumbHtml}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-1">
+                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-charcoal-900 text-amber-400">${item.sku}</span>
+                <button type="button" onclick="removeCartItem(${idx})" class="text-slate-400 hover:text-rose-600 p-1" title="Hapus item">
+                  <i class="fa-solid fa-trash-can text-xs"></i>
+                </button>
+              </div>
+              <h5 class="font-display font-bold text-xs sm:text-sm text-slate-900 truncate mt-1">${item.name}</h5>
+              <p class="text-[11px] text-slate-500">Warna: ${item.color} • Size: <strong class="text-slate-800">${item.size}</strong></p>
+              <div class="flex items-center justify-between mt-2">
+                <span class="font-bold text-xs text-amber-600">${formatRupiah(item.price)}</span>
+                <div class="flex items-center gap-1.5 bg-slate-100 rounded-lg p-0.5 border border-slate-200">
+                  <button type="button" onclick="updateCartItemQty(${idx}, -1)" class="w-6 h-6 rounded bg-white text-slate-800 font-bold text-xs shadow-2xs">-</button>
+                  <span class="w-6 text-center text-xs font-bold">${item.qty}</span>
+                  <button type="button" onclick="updateCartItemQty(${idx}, 1)" class="w-6 h-6 rounded bg-white text-slate-800 font-bold text-xs shadow-2xs">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (subtotal > 0 && hasAskPrice) {
+        totalPriceEl.textContent = `Rp ${subtotal.toLocaleString('id-ID')} + Item Tanya Admin`;
+      } else if (subtotal > 0) {
+        totalPriceEl.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+      } else {
+        totalPriceEl.textContent = 'Konfirmasi Admin WA';
+      }
+    }
+
+    function checkoutWhatsApp() {
+      if (state.cart.length === 0) {
+        showToast('Keranjang belanja masih kosong.', 'error');
+        return;
+      }
+
+      const customerName = (document.getElementById('checkout-customer-name').value || '').trim();
+      const customerAddress = (document.getElementById('checkout-customer-address').value || '').trim();
+      const agreed = document.getElementById('checkout-agree-terms').checked;
+
+      if (!customerName) {
+        showToast('Harap isi Nama Pemesan terlebih dahulu.', 'error');
+        document.getElementById('checkout-customer-name').focus();
+        return;
+      }
+      if (!customerAddress) {
+        showToast('Harap isi Alamat Lengkap Pengiriman.', 'error');
+        document.getElementById('checkout-customer-address').focus();
+        return;
+      }
+      if (!agreed) {
+        showToast('Centang persetujuan Syarat & Ketentuan terlebih dahulu.', 'error');
+        return;
+      }
+
+      const targetRadio = document.querySelector('input[name="checkout-wa-target"]:checked');
+      const isCs2 = targetRadio && targetRadio.value === '2';
+      const targetNumber = (isCs2 ? state.settings.waNumber2 : state.settings.waNumber || '6282114710891').replace(/\D/g, '');
+      const csLabel = isCs2 ? 'Admin CS 2' : 'Admin CS 1';
+
+      let totalKnown = 0;
+      const lines = state.cart.map((item, i) => {
+        const price = Number(item.price) || 0;
+        totalKnown += price * item.qty;
+        const priceLabel = price > 0 ? `Rp ${(price * item.qty).toLocaleString('id-ID')}` : 'Tanya Admin';
+        return `${i + 1}. [${item.sku}] *${item.name}*\n   • Warna: ${item.color}\n   • Ukuran: EU ${item.size}\n   • Jumlah: ${item.qty} psg (${priceLabel})`;
+      });
+
+      const totalSummary = totalKnown > 0
+        ? `Rp ${totalKnown.toLocaleString('id-ID')} (belum termasuk ongkir)`
+        : 'Mohon info total harga & ongkir';
+
+      const message = [
+        `Halo *${csLabel} EULOGIA FOOTWEAR*, saya ingin memesan sepatu dari katalog resmi:`,
+        ``,
+        `*DATA PEMESAN*`,
+        `• Nama: ${customerName}`,
+        `• Alamat: ${customerAddress}`,
+        ``,
+        `*DAFTAR PESANAN*`,
+        ...lines,
+        ``,
+        `*Estimasi Total Produk:* ${totalSummary}`,
+        ``,
+        `Saya sudah membaca & menyetujui Syarat & Ketentuan EULOGIA FOOTWEAR (booking stok 1x24 jam, tukar ukuran maks. 3 hari, dan wajib video unboxing tanpa jeda). Mohon konfirmasi ketersediaan stok & ongkos kirimnya. Terima kasih!`
+      ].join('\n');
+
+      const waUrl = `https://wa.me/${targetNumber}?text=${encodeURIComponent(message)}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    }
+
+    // 10. ADMIN AUTHENTICATION (EXCLUSIVE LOCAL SHA-256 & FIREBASE AUTH)
+    function togglePasswordVisibility(inputId, btnEl) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      if (btnEl) {
+        btnEl.innerHTML = isPassword
+          ? '<i class="fa-solid fa-eye-slash text-xs"></i>'
+          : '<i class="fa-solid fa-eye text-xs"></i>';
+      }
+    }
+
+    function getLocalAdminCred() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.ADMIN_CRED);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.email && parsed.salt && parsed.passwordHash) {
+          return parsed;
+        }
+      } catch (err) {
+        console.error('Gagal membaca kredensial admin:', err);
+      }
+      return null;
+    }
+
+    function generateRandomSalt(length = 16) {
+      const bytes = new Uint8Array(length);
+      window.crypto.getRandomValues(bytes);
+      return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function hashPasswordSHA256(password, salt) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(`${salt}:${password}`);
+      const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function restoreAdminSession() {
+      const isActive = sessionStorage.getItem(STORAGE_KEYS.ADMIN_SESSION) === 'true';
+      const cred = getLocalAdminCred();
+      if (isActive && cred) {
+        setAdminMode(true, cred.email);
+      } else {
+        sessionStorage.removeItem(STORAGE_KEYS.ADMIN_SESSION);
+        sessionStorage.removeItem(STORAGE_KEYS.ADMIN_ACTIVE_EMAIL);
+        setAdminMode(false, '');
+      }
+    }
+
+    function handleAdminLockClick() {
+      if (state.isAdmin) {
+        openSettingsModal('akun-admin');
+        return;
+      }
+      if (isFirebaseAuthActive()) {
+        openAdminLoginModal();
+        return;
+      }
+      const cred = getLocalAdminCred();
+      if (!cred) {
+        openAdminSetupModal();
+      } else {
+        openAdminLoginModal();
+      }
+    }
+
+    function openAdminSetupModal() {
+      document.getElementById('setup-admin-email').value = '';
+      document.getElementById('setup-admin-password').value = '';
+      document.getElementById('setup-admin-confirm').value = '';
+      document.getElementById('admin-setup-modal').classList.remove('hidden');
+    }
+
+    function closeAdminSetupModal() {
+      document.getElementById('admin-setup-modal').classList.add('hidden');
+    }
+
+    async function submitAdminSetup(event) {
+      event.preventDefault();
+      const email = document.getElementById('setup-admin-email').value.trim().toLowerCase();
+      const password = document.getElementById('setup-admin-password').value;
+      const confirmPass = document.getElementById('setup-admin-confirm').value;
+
+      if (!email || !email.includes('@')) {
+        showToast('Masukkan alamat email admin yang valid.', 'error');
+        return;
+      }
+      if (password.length < 8) {
+        showToast('Password rahasia minimal 8 karakter.', 'error');
+        return;
+      }
+      if (password !== confirmPass) {
+        showToast('Konfirmasi password tidak cocok.', 'error');
+        return;
+      }
+
+      try {
+        const salt = generateRandomSalt();
+        const passwordHash = await hashPasswordSHA256(password, salt);
+        const credRecord = {
+          email,
+          salt,
+          passwordHash,
+          createdAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(STORAGE_KEYS.ADMIN_CRED, JSON.stringify(credRecord));
+        sessionStorage.setItem(STORAGE_KEYS.ADMIN_SESSION, 'true');
+        sessionStorage.setItem(STORAGE_KEYS.ADMIN_ACTIVE_EMAIL, email);
+
+        closeAdminSetupModal();
+        setAdminMode(true, email);
+        showToast('Akun Admin pemilik berhasil diaktifkan dengan enkripsi SHA-256!', 'success');
+      } catch (err) {
+        console.error('Gagal menyimpan kredensial admin:', err);
+        showToast('Terjadi kesalahan saat mengaktifkan akun admin.', 'error');
+      }
+    }
+
+    function openAdminLoginModal() {
+      const emailInput = document.getElementById('admin-email-input');
+      const passInput = document.getElementById('admin-password-input');
+      const modeLabel = document.getElementById('login-auth-mode-label');
+
+      if (emailInput) emailInput.value = '';
+      if (passInput) passInput.value = '';
+      if (modeLabel) {
+        modeLabel.textContent = isFirebaseAuthActive()
+          ? 'Autentikasi Cloud Firebase'
+          : 'Akses Terproteksi Pemilik';
+      }
+
+      document.getElementById('admin-login-modal').classList.remove('hidden');
+    }
+
+    function closeAdminLoginModal() {
+      document.getElementById('admin-login-modal').classList.add('hidden');
+    }
+
+    async function submitAdminLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById('admin-email-input').value.trim().toLowerCase();
+      const password = document.getElementById('admin-password-input').value;
+
+      if (!email || !password) {
+        showToast('Masukkan email dan password admin.', 'error');
+        return;
+      }
+
+      if (isFirebaseAuthActive()) {
+        try {
+          const userCred = await state.auth.signInWithEmailAndPassword(email, password);
+          closeAdminLoginModal();
+          setAdminMode(true, (userCred.user && userCred.user.email) || email);
+          showToast('Berhasil masuk Mode Admin (Firebase Auth).', 'success');
+        } catch (err) {
+          console.error('Firebase login error:', err);
+          showToast('Login gagal. Periksa email atau password Firebase Anda.', 'error');
+        }
+        return;
+      }
+
+      const cred = getLocalAdminCred();
+      if (!cred) {
+        closeAdminLoginModal();
+        openAdminSetupModal();
+        return;
+      }
+
+      try {
+        const inputHash = await hashPasswordSHA256(password, cred.salt);
+        if (email === cred.email.toLowerCase() && inputHash === cred.passwordHash) {
+          sessionStorage.setItem(STORAGE_KEYS.ADMIN_SESSION, 'true');
+          sessionStorage.setItem(STORAGE_KEYS.ADMIN_ACTIVE_EMAIL, cred.email);
+          closeAdminLoginModal();
+          setAdminMode(true, cred.email);
+          showToast('Berhasil masuk Mode Admin.', 'success');
+        } else {
+          showToast('Email atau password admin salah.', 'error');
+        }
+      } catch (err) {
+        console.error('Login verification error:', err);
+        showToast('Gagal memverifikasi kredensial.', 'error');
+      }
+    }
+
+    async function logoutAdmin() {
+      if (isFirebaseAuthActive() && state.auth && state.auth.currentUser) {
+        try {
+          await state.auth.signOut();
+        } catch (err) {
+          console.error('Firebase signOut error:', err);
+        }
+      }
+      sessionStorage.removeItem(STORAGE_KEYS.ADMIN_SESSION);
+      sessionStorage.removeItem(STORAGE_KEYS.ADMIN_ACTIVE_EMAIL);
+      setAdminMode(false, '');
+      showToast('Anda telah keluar dari Mode Admin.', 'info');
+    }
+
+    function setAdminMode(isAdmin, email = '') {
+      state.isAdmin = Boolean(isAdmin);
+      state.activeAdminEmail = state.isAdmin ? (email || state.activeAdminEmail || '') : '';
+
+      const toolbar = document.getElementById('admin-toolbar');
+      if (toolbar) toolbar.classList.toggle('hidden', !state.isAdmin);
+
+      const floatingBtn = document.getElementById('floating-admin-settings-btn');
+      if (floatingBtn) {
+        floatingBtn.classList.toggle('hidden', !state.isAdmin);
+        floatingBtn.classList.toggle('inline-flex', state.isAdmin);
+      }
+
+      const lockIcon = document.getElementById('admin-lock-icon');
+      const lockBtn = document.getElementById('admin-lock-btn');
+      if (lockIcon) {
+        lockIcon.className = state.isAdmin
+          ? 'fa-solid fa-lock-open text-xs text-amber-400'
+          : 'fa-solid fa-lock text-xs';
+      }
+      if (lockBtn) {
+        lockBtn.title = state.isAdmin ? 'Pengaturan Akun Admin' : 'Akses Admin';
+      }
+
+      applyFilters();
+    }
+
+    // 11. ADMIN PRODUCT ADD / EDIT MODAL & MULTI-IMAGE MANAGER
+    function openProductFormModal(productId = null) {
+      if (!state.isAdmin) return;
+
+      const formTitle = document.getElementById('product-form-title');
+      const editIdInput = document.getElementById('pf-edit-id');
+      const fileInput = document.getElementById('pf-image-files');
+      const urlInput = document.getElementById('pf-image-url-input');
+
+      if (fileInput) fileInput.value = '';
+      if (urlInput) urlInput.value = '';
+
+      if (productId) {
+        const product = state.products.find(p => p.id === productId);
+        if (!product) return;
+
+        formTitle.textContent = `Edit Produk (${product.sku})`;
+        editIdInput.value = product.id;
+        document.getElementById('pf-sku').value = product.sku;
+        document.getElementById('pf-name').value = product.name;
+        document.getElementById('pf-color').value = product.color;
+        document.getElementById('pf-category').value = product.category || 'PRIA';
+        document.getElementById('pf-stock').value = Number(product.stock) || 0;
+        document.getElementById('pf-status').value = product.status || 'TERSEDIA';
+        document.getElementById('pf-price').value = Number(product.price) || 0;
+        document.getElementById('pf-description').value = product.description || '';
+        state.formImages = [...getProductImages(product)];
+      } else {
+        const nextNum = state.products.length + 1;
+        const suggestedSku = `NMR-${String(nextNum).padStart(3, '0')}`;
+        formTitle.textContent = 'Tambah Produk Sepatu Baru';
+        editIdInput.value = '';
+        document.getElementById('pf-sku').value = suggestedSku;
+        document.getElementById('pf-name').value = '';
+        document.getElementById('pf-color').value = '';
+        document.getElementById('pf-category').value = 'PRIA';
+        document.getElementById('pf-stock').value = 10;
+        document.getElementById('pf-status').value = 'TERSEDIA';
+        document.getElementById('pf-price').value = 0;
+        document.getElementById('pf-description').value = '';
+        state.formImages = [];
+      }
+
+      renderProductFormGallery();
+      document.getElementById('product-form-modal').classList.remove('hidden');
+    }
+
+    function closeProductFormModal() {
+      document.getElementById('product-form-modal').classList.add('hidden');
+    }
+
+    function renderProductFormGallery() {
+      const grid = document.getElementById('pf-gallery-grid');
+      const countBadge = document.getElementById('pf-photo-count-badge');
+      const count = state.formImages.length;
+
+      if (countBadge) {
+        countBadge.textContent = `${count} / ${MAX_PRODUCT_IMAGES} Foto`;
+      }
+
+      if (count === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-4 px-3 rounded-xl border border-dashed border-slate-300 bg-white text-center text-xs text-slate-500">
+            <i class="fa-regular fa-images text-base text-slate-400 mb-1 block"></i>
+            Belum ada foto diunggah. Katalog akan menampilkan ilustrasi SVG otomatis sesuai warna sepatu.
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = state.formImages.map((url, idx) => {
+        const isCover = idx === 0;
+        return `
+          <div class="relative group rounded-xl bg-white border-2 ${isCover ? 'border-amber-500' : 'border-slate-200'} p-1.5 shadow-2xs flex flex-col gap-1">
+            <div class="aspect-square rounded-lg bg-slate-50 overflow-hidden flex items-center justify-center">
+              <img src="${url}" alt="Foto ${idx + 1}" class="w-full h-full object-contain" />
+            </div>
+            <div class="flex items-center justify-between gap-1">
+              ${isCover
+                ? '<span class="px-1.5 py-0.5 rounded bg-amber-500 text-charcoal-950 text-[9px] font-extrabold">UTAMA</span>'
+                : `<button type="button" onclick="setPrimaryProductFormImage(${idx})" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-900 text-[9px] font-bold">Utama</button>`
+              }
+              <button
+                type="button"
+                onclick="removeProductFormImage(${idx})"
+                class="w-5 h-5 rounded bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white flex items-center justify-center transition-colors"
+                title="Hapus foto ini"
+              >
+                <i class="fa-solid fa-xmark text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setPrimaryProductFormImage(idx) {
+      if (idx <= 0 || idx >= state.formImages.length) return;
+      const [chosen] = state.formImages.splice(idx, 1);
+      state.formImages.unshift(chosen);
+      renderProductFormGallery();
+    }
+
+    function removeProductFormImage(idx) {
+      state.formImages.splice(idx, 1);
+      renderProductFormGallery();
+    }
+
+    function clearProductFormImages() {
+      state.formImages = [];
+      const fileInput = document.getElementById('pf-image-files');
+      if (fileInput) fileInput.value = '';
+      renderProductFormGallery();
+    }
+
+    function addProductFormImageUrl() {
+      const urlInput = document.getElementById('pf-image-url-input');
+      const url = (urlInput.value || '').trim();
+      if (!url) {
+        showToast('Masukkan URL foto terlebih dahulu.', 'error');
+        return;
+      }
+      if (state.formImages.length >= MAX_PRODUCT_IMAGES) {
+        showToast(`Maksimal ${MAX_PRODUCT_IMAGES} foto per produk.`, 'error');
+        return;
+      }
+      state.formImages.push(url);
+      urlInput.value = '';
+      renderProductFormGallery();
+      showToast('URL foto ditambahkan ke galeri produk.', 'success');
+    }
+
+    async function handleProductImageFiles(event) {
+      const files = Array.from(event.target.files || []);
+      if (files.length === 0) return;
+
+      const remainingSlots = MAX_PRODUCT_IMAGES - state.formImages.length;
+      if (remainingSlots <= 0) {
+        showToast(`Maksimal ${MAX_PRODUCT_IMAGES} foto per produk.`, 'error');
+        event.target.value = '';
+        return;
+      }
+
+      const selectedFiles = files.slice(0, remainingSlots);
+      for (const file of selectedFiles) {
+        try {
+          const compressedDataUrl = await compressImageFile(file, 720, 0.76);
+          state.formImages.push(compressedDataUrl);
+        } catch (err) {
+          console.error('Gagal memproses file foto:', err);
+          showToast(`Gagal memuat file ${file.name}.`, 'error');
+        }
+      }
+
+      if (files.length > remainingSlots) {
+        showToast(`Hanya ${remainingSlots} foto pertama yang ditambahkan (maks. ${MAX_PRODUCT_IMAGES} foto).`, 'info');
+      } else {
+        showToast(`${selectedFiles.length} foto berhasil ditambahkan.`, 'success');
+      }
+
+      event.target.value = '';
+      renderProductFormGallery();
+    }
+
+    function compressImageFile(file, maxWidth = 720, quality = 0.76) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('FileReader error'));
+        reader.onload = () => {
+          const img = new Image();
+          img.onerror = () => reject(new Error('Image load error'));
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function saveProductForm(event) {
+      event.preventDefault();
+      if (!state.isAdmin) return;
+
+      const editId = document.getElementById('pf-edit-id').value.trim();
+      const sku = document.getElementById('pf-sku').value.trim().toUpperCase();
+      const name = document.getElementById('pf-name').value.trim().toUpperCase();
+      const color = document.getElementById('pf-color').value.trim().toUpperCase();
+      const category = document.getElementById('pf-category').value;
+      const stock = Math.max(0, parseInt(document.getElementById('pf-stock').value, 10) || 0);
+      const status = document.getElementById('pf-status').value;
+      const price = Math.max(0, parseInt(document.getElementById('pf-price').value, 10) || 0);
+      const description = document.getElementById('pf-description').value.trim();
+      const images = [...state.formImages];
+
+      if (!sku || !name || !color) {
+        showToast('Kode SKU, Nama Model, dan Varian Warna wajib diisi.', 'error');
+        return;
+      }
+
+      const duplicateSku = state.products.find(p => p.sku.toUpperCase() === sku && p.id !== editId);
+      if (duplicateSku) {
+        showToast(`Kode SKU ${sku} sudah digunakan oleh produk lain.`, 'error');
+        return;
+      }
+
+      const productPayload = normalizeProductImages({
+        id: editId || sku,
+        sku,
+        name,
+        color,
+        category,
+        stock,
+        status,
+        price,
+        images,
+        image: images[0] || '',
+        description: description || `Sepatu ${name} varian warna ${color} (${category}) dari EULOGIA FOOTWEAR.`
+      });
+
+      if (editId) {
+        const idx = state.products.findIndex(p => p.id === editId);
+        if (idx > -1) {
+          state.products[idx] = productPayload;
+        }
+      } else {
+        state.products.unshift(productPayload);
+      }
+
+      saveProductsLocal();
+      applyFilters();
+      closeProductFormModal();
+
+      if (state.firebaseReady && state.db) {
+        try {
+          const checkSnap = await state.db.collection('eulogia_products').limit(1).get();
+          if (checkSnap.empty) {
+            const batch = state.db.batch();
+            state.products.forEach(p => {
+              const ref = state.db.collection('eulogia_products').doc(p.sku);
+              batch.set(ref, p);
+            });
+            await batch.commit();
+          } else {
+            await state.db.collection('eulogia_products').doc(productPayload.sku).set(productPayload);
+          }
+        } catch (err) {
+          console.error('Sinkronisasi Firestore gagal:', err);
+          showToast('Tersimpan lokal, namun gagal sinkron ke Cloud Firestore (cek Rules/Login Firebase).', 'error');
+        }
+      }
+
+      showToast(editId ? `Produk ${sku} berhasil diperbarui.` : `Produk ${sku} berhasil ditambahkan.`, 'success');
+    }
+
+    function confirmDeleteProduct(productId) {
+      if (!state.isAdmin) return;
+      const product = state.products.find(p => p.id === productId);
+      if (!product) return;
+
+      openConfirmDialog(
+        'Hapus Produk Sepatu',
+        `Apakah Anda yakin ingin menghapus ${product.sku} (${product.name}) dari katalog?`,
+        async () => {
+          state.products = state.products.filter(p => p.id !== productId);
+          saveProductsLocal();
+          applyFilters();
+
+          if (state.firebaseReady && state.db) {
+            try {
+              await state.db.collection('eulogia_products').doc(product.sku).delete();
+            } catch (err) {
+              console.warn('Hapus Firestore gagal:', err);
+            }
+          }
+          showToast(`Produk ${product.sku} telah dihapus.`, 'info');
+        }
+      );
+    }
+
+    function confirmResetCatalog() {
+      if (!state.isAdmin) return;
+      openConfirmDialog(
+        'Reset Data Katalog ke 36 Produk Awal',
+        'Semua perubahan produk lokal akan dikembalikan ke 36 data master awal. Lanjutkan?',
+        () => {
+          state.products = JSON.parse(JSON.stringify(INITIAL_PRODUCTS)).map(normalizeProductImages);
+          saveProductsLocal();
+          applyFilters();
+          showToast('Data katalog berhasil di-reset ke 36 produk awal.', 'success');
+        }
+      );
+    }
+
+    // 12. SETTINGS MODAL (WA, MEDSOS, FIREBASE & UPDATE AKUN ADMIN)
+    function openSettingsModal(defaultTab = 'toko-firebase') {
+      if (!state.isAdmin) return;
+
+      document.getElementById('set-wa-number').value = state.settings.waNumber || '6282114710891';
+      document.getElementById('set-wa-number-2').value = state.settings.waNumber2 || '6281289217188';
+      document.getElementById('set-tiktok-url').value = state.settings.tiktokUrl || '';
+      document.getElementById('set-shopee-url').value = state.settings.shopeeUrl || '';
+      document.getElementById('set-firebase-config').value = state.settings.firebaseConfigStr || JSON.stringify(PERMANENT_FIREBASE_CONFIG, null, 2);
+
+      const currentEmail = state.activeAdminEmail || (getLocalAdminCred() && getLocalAdminCred().email) || '-';
+      document.getElementById('acc-current-email-display').textContent = currentEmail;
+      document.getElementById('acc-new-email').value = currentEmail !== '-' ? currentEmail : '';
+      document.getElementById('acc-old-password').value = '';
+      document.getElementById('acc-new-password').value = '';
+      document.getElementById('acc-confirm-password').value = '';
+
+      const providerBadge = document.getElementById('acc-auth-provider-badge');
+      const resetPwdBox = document.getElementById('firebase-reset-password-box');
+      if (isFirebaseAuthActive()) {
+        providerBadge.textContent = 'Firebase Authentication';
+        resetPwdBox.classList.remove('hidden');
+      } else {
+        providerBadge.textContent = 'Mode Lokal SHA-256';
+        resetPwdBox.classList.add('hidden');
+      }
+
+      switchSettingsTab(defaultTab);
+      document.getElementById('settings-modal').classList.remove('hidden');
+    }
+
+    function closeSettingsModal() {
+      document.getElementById('settings-modal').classList.add('hidden');
+    }
+
+    function switchSettingsTab(tabName) {
+      document.querySelectorAll('.settings-tab-btn').forEach(btn => {
+        const isActive = btn.getAttribute('data-settings-tab') === tabName;
+        if (isActive) {
+          btn.className = 'settings-tab-btn px-3.5 py-2 rounded-t-xl text-xs sm:text-sm font-bold border-b-2 bg-white text-charcoal-900 border-amber-500 transition-all';
+        } else {
+          btn.className = 'settings-tab-btn px-3.5 py-2 rounded-t-xl text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all';
+        }
+      });
+
+      document.querySelectorAll('.settings-tab-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+      const activePanel = document.getElementById(`settings-panel-${tabName}`);
+      if (activePanel) activePanel.classList.remove('hidden');
+    }
+
+    function saveStoreSettings(event) {
+      event.preventDefault();
+      if (!state.isAdmin) return;
+
+      const wa1 = (document.getElementById('set-wa-number').value || '').replace(/\D/g, '');
+      const wa2 = (document.getElementById('set-wa-number-2').value || '').replace(/\D/g, '');
+      const tiktok = (document.getElementById('set-tiktok-url').value || '').trim();
+      const shopee = (document.getElementById('set-shopee-url').value || '').trim();
+      const fbStr = (document.getElementById('set-firebase-config').value || '').trim();
+
+      if (!wa1 || !wa2) {
+        showToast('Kedua nomor WhatsApp admin wajib diisi dengan angka format 628...', 'error');
+        return;
+      }
+
+      if (fbStr) {
+        try {
+          const parsed = JSON.parse(fbStr);
+          if (!parsed.apiKey || !parsed.projectId) {
+            showToast('JSON firebaseConfig harus memiliki apiKey dan projectId.', 'error');
+            return;
+          }
+        } catch (err) {
+          showToast('Format JSON firebaseConfig tidak valid.', 'error');
+          return;
+        }
+      }
+
+      state.settings = {
+        waNumber: wa1,
+        waNumber2: wa2,
+        tiktokUrl: tiktok,
+        shopeeUrl: shopee,
+        firebaseConfigStr: fbStr
+      };
+
+      localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));
+      applyExternalLinks();
+      initFirebaseIfConfigured();
+      if (state.firebaseReady && state.db) {
+        state.db.collection('eulogia_settings').doc('store').set({
+          waNumber: wa1,
+          waNumber2: wa2,
+          tiktokUrl: tiktok,
+          shopeeUrl: shopee
+        }, { merge: true }).catch(() => {});
+      }
+      closeSettingsModal();
+      showToast('Pengaturan WhatsApp, media sosial, & Firebase berhasil disimpan.', 'success');
+    }
+
+    async function submitUpdateAdminAccount(event) {
+      event.preventDefault();
+      if (!state.isAdmin) return;
+
+      const newEmail = document.getElementById('acc-new-email').value.trim().toLowerCase();
+      const oldPassword = document.getElementById('acc-old-password').value;
+      const newPassword = document.getElementById('acc-new-password').value;
+      const confirmPassword = document.getElementById('acc-confirm-password').value;
+
+      if (!newEmail || !newEmail.includes('@')) {
+        showToast('Masukkan email admin yang valid.', 'error');
+        return;
+      }
+      if (newPassword.length < 8) {
+        showToast('Password baru minimal 8 karakter.', 'error');
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        showToast('Konfirmasi password baru tidak cocok.', 'error');
+        return;
+      }
+
+      if (isFirebaseAuthActive() && state.auth && state.auth.currentUser) {
+        try {
+          const user = state.auth.currentUser;
+          const credential = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword);
+          await user.reauthenticateWithCredential(credential);
+          if (newEmail !== user.email) {
+            await user.updateEmail(newEmail);
+          }
+          await user.updatePassword(newPassword);
+          state.activeAdminEmail = newEmail;
+          closeSettingsModal();
+          showToast('Email & Password akun Firebase Admin berhasil diperbarui.', 'success');
+        } catch (err) {
+          console.error('Firebase update account error:', err);
+          showToast('Gagal memperbarui akun Firebase. Pastikan password lama benar.', 'error');
+        }
+        return;
+      }
+
+      const cred = getLocalAdminCred();
+      if (!cred) {
+        showToast('Data akun lokal tidak ditemukan.', 'error');
+        return;
+      }
+
+      try {
+        const oldHash = await hashPasswordSHA256(oldPassword, cred.salt);
+        if (oldHash !== cred.passwordHash) {
+          showToast('Password lama yang Anda masukkan salah.', 'error');
+          return;
+        }
+
+        const newSalt = generateRandomSalt();
+        const newHash = await hashPasswordSHA256(newPassword, newSalt);
+        const updatedCred = {
+          email: newEmail,
+          salt: newSalt,
+          passwordHash: newHash,
+          updatedAt: new Date().toISOString()
+        };
+
+        localStorage.setItem(STORAGE_KEYS.ADMIN_CRED, JSON.stringify(updatedCred));
+        sessionStorage.setItem(STORAGE_KEYS.ADMIN_ACTIVE_EMAIL, newEmail);
+        state.activeAdminEmail = newEmail;
+
+        closeSettingsModal();
+        showToast('Email & Password Admin lokal berhasil diperbarui!', 'success');
+      } catch (err) {
+        console.error('Gagal memperbarui kredensial lokal:', err);
+        showToast('Terjadi kesalahan saat memperbarui akun admin.', 'error');
+      }
+    }
+
+    async function sendAdminPasswordResetEmail() {
+      if (!isFirebaseAuthActive() || !state.auth || !state.auth.currentUser) return;
+      const email = state.auth.currentUser.email;
+      try {
+        await state.auth.sendPasswordResetEmail(email);
+        showToast(`Email reset password telah dikirim ke ${email}.`, 'success');
+      } catch (err) {
+        console.error('Send password reset error:', err);
+        showToast('Gagal mengirim email reset password.', 'error');
+      }
+    }
+
+    // 13. CUSTOM CONFIRM DIALOG & TOAST NOTIFICATIONS
+    let confirmDialogCallback = null;
+
+    function openConfirmDialog(title, message, onConfirm) {
+      document.getElementById('confirm-dialog-title').textContent = title;
+      document.getElementById('confirm-dialog-message').textContent = message;
+      confirmDialogCallback = onConfirm;
+
+      const okBtn = document.getElementById('confirm-dialog-ok-btn');
+      okBtn.onclick = () => {
+        const fn = confirmDialogCallback;
+        closeConfirmDialog();
+        if (typeof fn === 'function') fn();
+      };
+
+      document.getElementById('confirm-dialog').classList.remove('hidden');
+    }
+
+    function closeConfirmDialog() {
+      confirmDialogCallback = null;
+      document.getElementById('confirm-dialog').classList.add('hidden');
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      let bgClass = 'bg-charcoal-900 text-white border-slate-700';
+      let iconHtml = '<i class="fa-solid fa-circle-info text-amber-400"></i>';
+
+      if (type === 'success') {
+        bgClass = 'bg-emerald-950 text-emerald-100 border-emerald-700';
+        iconHtml = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+      } else if (type === 'error') {
+        bgClass = 'bg-rose-950 text-rose-100 border-rose-700';
+        iconHtml = '<i class="fa-solid fa-circle-exclamation text-rose-400"></i>';
+      }
+
+      toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl border shadow-xl text-xs sm:text-sm font-medium animate-fade-up max-w-sm ${bgClass}`;
+      toast.innerHTML = `${iconHtml}<span>${message}</span>`;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => toast.remove(), 260);
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
