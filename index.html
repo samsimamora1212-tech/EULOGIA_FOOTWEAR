@@ -41,14 +41,14 @@
       adminPassFallback: "admin123"
     };
 
-    // TEMPELKAN KODE FIREBASE CONFIG ANDA DI SINI AGAR PERMANEN DI SEMUA PERANGKAT
+    // KONFIGURASI FIREBASE PERMANEN AGAR OTOMATIS TERHUBUNG DI SEMUA LINK & PERANGKAT
     const PERMANENT_FIREBASE_CONFIG = {
-      apiKey: "",
-      authDomain: "",
-      projectId: "",
-      storageBucket: "",
-      messagingSenderId: "",
-      appId: ""
+      apiKey: "AIzaSyBY4sj0SzBfX99imBk6_j4bOaCWnbxQO4c",
+      authDomain: "eulogia-shoes.firebaseapp.com",
+      projectId: "eulogia-shoes",
+      storageBucket: "eulogia-shoes.firebasestorage.app",
+      messagingSenderId: "1067478758651",
+      appId: "1:1067478758651:web:deaae536cc8ea0d197ac5e"
     };
   </script>
 
@@ -972,6 +972,8 @@
     let useFirebase = false;
     let db = null;
     let auth = null;
+    let unsubscribeProducts = null;
+    let unsubscribeSettings = null;
 
     // State Detail Modal
     let activeDetailProduct = null;
@@ -1033,6 +1035,25 @@
       return null;
     }
 
+    async function seedProductsToFirestoreIfEmpty() {
+      if (!useFirebase || !db) return;
+      try {
+        const snap = await db.collection("eulogia_products").limit(1).get();
+        if (snap.empty) {
+          const sourceList = (products && products.length > 0) ? products : createInitialProducts();
+          const batch = db.batch();
+          sourceList.forEach(p => {
+            const docId = String(p.id || p.sku);
+            const ref = db.collection("eulogia_products").doc(docId);
+            batch.set(ref, { ...p, id: docId }, { merge: true });
+          });
+          await batch.commit();
+        }
+      } catch (err) {
+        console.warn("Auto-seed Firestore dilewati:", err);
+      }
+    }
+
     async function initDatabase() {
       const fbCfg = getActiveFirebaseConfig();
       if (fbCfg) {
@@ -1045,31 +1066,62 @@
           useFirebase = true;
           updateCloudStatusUI(true);
 
-          auth.onAuthStateChanged(user => {
+          auth.onAuthStateChanged(async user => {
             if (user) {
               setAdminState(true);
+              await seedProductsToFirestoreIfEmpty();
             }
           });
 
-          // Sinkronisasi Pengaturan Toko dari Cloud
-          db.collection("eulogia_settings").doc("store").onSnapshot(doc => {
+          if (typeof unsubscribeSettings === "function") unsubscribeSettings();
+          if (typeof unsubscribeProducts === "function") unsubscribeProducts();
+
+          // Sinkronisasi Pengaturan Toko Real-Time dari Cloud ke Semua Link
+          unsubscribeSettings = db.collection("eulogia_settings").doc("store").onSnapshot(doc => {
             if (doc.exists) {
-              storeConfig = { ...storeConfig, ...doc.data() };
+              const cloudData = doc.data() || {};
+              const { adminEmailFallback, adminPassFallback, ...publicSettings } = cloudData;
+              storeConfig = { ...storeConfig, ...publicSettings };
+              localStorage.setItem("ef_store_config", JSON.stringify(storeConfig));
               applyStoreConfigUI();
             }
+          }, err => {
+            console.warn("Listener pengaturan cloud:", err);
           });
 
-          // Sinkronisasi Produk Real-Time dari Cloud
-          db.collection("eulogia_products").onSnapshot(snapshot => {
+          // Sinkronisasi Produk Real-Time dari Cloud ke Semua Link
+          unsubscribeProducts = db.collection("eulogia_products").onSnapshot(async snapshot => {
             if (snapshot.empty) {
               const localSaved = JSON.parse(localStorage.getItem("ef_products") || "null");
               products = localSaved && localSaved.length ? localSaved : createInitialProducts();
               applyFilters();
+              if (isAdmin) {
+                await seedProductsToFirestoreIfEmpty();
+              }
             } else {
-              products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+              products = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
               localStorage.setItem("ef_products", JSON.stringify(products));
               applyFilters();
+              // Perbarui modal detail secara otomatis jika sedang dibuka pengunjung
+              if (activeDetailProduct && !document.getElementById("detail-modal").classList.contains("hidden")) {
+                const refreshed = products.find(item => item.id === activeDetailProduct.id);
+                if (refreshed) {
+                  activeDetailProduct = refreshed;
+                  document.getElementById("detail-name").textContent = refreshed.name;
+                  document.getElementById("detail-price").textContent = formatRupiah(refreshed.price);
+                  document.getElementById("detail-color").textContent = refreshed.color;
+                  document.getElementById("detail-stock").textContent = `${refreshed.stock} pasang`;
+                  document.getElementById("detail-box").textContent = refreshed.box || "-";
+                  document.getElementById("detail-desc").textContent = refreshed.description || "-";
+                  const st = getStockStatus(Number(refreshed.stock));
+                  document.getElementById("detail-status").textContent = `${st} (${refreshed.stock} PSG)`;
+                  renderDetailGallery();
+                }
+              }
             }
+          }, err => {
+            console.warn("Listener produk cloud fallback ke lokal:", err);
+            updateCloudStatusUI(false);
           });
           return;
         } catch (err) {
@@ -1588,8 +1640,12 @@ Mohon konfirmasi ketersediaan stok & total pembayarannya ya. Terima kasih!`;
       }
 
       if (email === storeConfig.adminEmailFallback && pass === storeConfig.adminPassFallback) {
+        if (useFirebase && auth && !auth.currentUser) {
+          try { await auth.signInAnonymously(); } catch (e) {}
+        }
         setAdminState(true);
         closeAdminLoginModal();
+        seedProductsToFirestoreIfEmpty();
       } else {
         alert("Email atau Password Admin salah!");
       }
@@ -1754,31 +1810,50 @@ Mohon konfirmasi ketersediaan stok & total pembayarannya ya. Terima kasih!`;
         updatedAt: new Date().toISOString()
       };
 
-      if (useFirebase && db) {
-        await db.collection("eulogia_products").doc(data.id).set(data, { merge: true });
+      // Perbarui state lokal terlebih dahulu agar tampilan langsung responsif
+      if (editId) {
+        const idx = products.findIndex(p => p.id === editId);
+        if (idx > -1) products[idx] = data;
+        else products.unshift(data);
       } else {
-        if (editId) {
-          const idx = products.findIndex(p => p.id === editId);
-          if (idx > -1) products[idx] = data;
-        } else {
-          products.unshift(data);
-        }
-        localStorage.setItem("ef_products", JSON.stringify(products));
-        applyFilters();
+        const dupIdx = products.findIndex(p => p.id === data.id);
+        if (dupIdx > -1) products[dupIdx] = data;
+        else products.unshift(data);
       }
+      localStorage.setItem("ef_products", JSON.stringify(products));
+      applyFilters();
       closeProductFormModal();
+
+      // Sinkronkan ke Cloud Firestore agar otomatis terupdate di semua link & perangkat
+      if (useFirebase && db) {
+        try {
+          await seedProductsToFirestoreIfEmpty();
+          if (editId && editId !== data.id) {
+            await db.collection("eulogia_products").doc(editId).delete();
+          }
+          await db.collection("eulogia_products").doc(data.id).set(data, { merge: true });
+        } catch (err) {
+          console.error("Gagal sinkron produk ke Cloud Firestore:", err);
+          alert("Perubahan tersimpan di browser ini, namun gagal sinkron ke Cloud Firestore: " + err.message);
+        }
+      }
     }
 
     async function deleteProduct(id) {
       if (!isAdmin) return;
       if (!confirm("Hapus produk sepatu ini dari katalog?")) return;
 
+      products = products.filter(p => p.id !== id);
+      localStorage.setItem("ef_products", JSON.stringify(products));
+      applyFilters();
+
       if (useFirebase && db) {
-        await db.collection("eulogia_products").doc(id).delete();
-      } else {
-        products = products.filter(p => p.id !== id);
-        localStorage.setItem("ef_products", JSON.stringify(products));
-        applyFilters();
+        try {
+          await db.collection("eulogia_products").doc(id).delete();
+        } catch (err) {
+          console.error("Gagal menghapus produk di Cloud Firestore:", err);
+          alert("Gagal menghapus di Cloud Firestore: " + err.message);
+        }
       }
     }
 
@@ -1825,6 +1900,17 @@ Mohon konfirmasi ketersediaan stok & total pembayarannya ya. Terima kasih!`;
       localStorage.setItem("ef_store_config", JSON.stringify(storeConfig));
       applyStoreConfigUI();
 
+      const publicStoreSettings = {
+        storeName: storeConfig.storeName,
+        wa1Number: storeConfig.wa1Number,
+        wa1Display: storeConfig.wa1Display,
+        wa2Number: storeConfig.wa2Number,
+        wa2Display: storeConfig.wa2Display,
+        tiktokUrl: storeConfig.tiktokUrl,
+        shopeeUrl: storeConfig.shopeeUrl,
+        updatedAt: new Date().toISOString()
+      };
+
       // Simpan Konfigurasi Firebase jika diisi
       const rawJson = document.getElementById("set-firebase-json").value.trim();
       if (rawJson) {
@@ -1833,7 +1919,9 @@ Mohon konfirmasi ketersediaan stok & total pembayarannya ya. Terima kasih!`;
           if (parsed.apiKey && parsed.projectId) {
             localStorage.setItem("ef_firebase_config", JSON.stringify(parsed));
             if (useFirebase && db) {
-              await db.collection("eulogia_settings").doc("store").set(storeConfig, { merge: true });
+              try {
+                await db.collection("eulogia_settings").doc("store").set(publicStoreSettings, { merge: true });
+              } catch (e) {}
             }
             closeSettingsModal();
             location.reload();
@@ -1846,7 +1934,11 @@ Mohon konfirmasi ketersediaan stok & total pembayarannya ya. Terima kasih!`;
       }
 
       if (useFirebase && db) {
-        await db.collection("eulogia_settings").doc("store").set(storeConfig, { merge: true });
+        try {
+          await db.collection("eulogia_settings").doc("store").set(publicStoreSettings, { merge: true });
+        } catch (err) {
+          console.error("Gagal sinkron pengaturan ke Cloud Firestore:", err);
+        }
       }
       closeSettingsModal();
     }
