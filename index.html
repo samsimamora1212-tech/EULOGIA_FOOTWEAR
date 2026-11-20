@@ -977,7 +977,7 @@
 
           <div
             id="detail-visual"
-            class="w-full aspect-[4/3] rounded-xl bg-white shadow-inner border border-slate-200/80 flex items-center justify-center overflow-hidden p-3 select-none"
+            class="w-full aspect-[4/3] rounded-xl bg-white shadow-inner border border-slate-200/80 flex items-center justify-center overflow-hidden select-none"
           >
             <!-- Populated dynamically -->
           </div>
@@ -2618,7 +2618,7 @@
       const thumbStrip = document.getElementById('detail-thumbnails');
 
       if (images.length === 0) {
-        visualEl.innerHTML = `<div class="w-full h-full flex items-center justify-center">${generateShoeSVG(product)}</div>`;
+        visualEl.innerHTML = `<div class="w-full h-full flex items-center justify-center p-3">${generateShoeSVG(product)}</div>`;
         counterEl.classList.add('hidden');
         prevBtn.classList.add('hidden');
         nextBtn.classList.add('hidden');
@@ -2635,10 +2635,10 @@
         <img
           src="${activeUrl}"
           alt="${product.name} - Foto ${state.selectedDetailImageIndex + 1}"
-          class="w-full h-full object-contain rounded-lg transition-all duration-200"
+          class="w-full h-full object-cover transition-all duration-200"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
-        <div style="display:none;" class="w-full h-full items-center justify-center">${generateShoeSVG(product)}</div>
+        <div style="display:none;" class="w-full h-full items-center justify-center p-3">${generateShoeSVG(product)}</div>
       `;
 
       if (images.length > 1) {
