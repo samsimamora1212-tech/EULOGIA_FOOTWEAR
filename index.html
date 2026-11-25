@@ -1203,6 +1203,32 @@
           <div id="pf-gallery-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 pt-1">
             <!-- Populated dynamically by renderProductFormGallery() -->
           </div>
+
+          <!-- Atur Posisi Foto (manual) -->
+          <div id="pf-adjust-panel" class="hidden p-3 rounded-xl bg-white border border-slate-200 space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <p class="font-bold text-slate-800 text-xs">Atur Posisi Foto <span id="pf-adjust-label">1</span></p>
+              <button type="button" onclick="resetFormAdjust()" class="text-[11px] font-semibold text-amber-700 hover:underline">Auto Center (Reset)</button>
+            </div>
+            <div class="w-full max-w-xs mx-auto aspect-[4/3] rounded-xl bg-white border border-slate-200 overflow-hidden flex items-center justify-center">
+              <img id="pf-adjust-preview" src="" alt="Pratinjau posisi foto" class="w-full h-full object-contain object-center" />
+            </div>
+            <p class="text-[11px] text-slate-500">Klik foto di galeri di atas untuk memilih foto yang mau diatur. Bawaannya sudah auto center dan tidak terpotong.</p>
+            <div class="space-y-1.5">
+              <div>
+                <div class="flex items-center justify-between text-[11px] font-semibold text-slate-700"><span>Zoom</span><span id="pf-adj-z-val">100%</span></div>
+                <input type="range" id="pf-adj-z" min="50" max="250" step="1" value="100" oninput="updateFormAdjust('z', this.value)" class="w-full accent-amber-500" />
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-[11px] font-semibold text-slate-700"><span>Geser Kiri &#8596; Kanan</span><span id="pf-adj-x-val">0</span></div>
+                <input type="range" id="pf-adj-x" min="-50" max="50" step="1" value="0" oninput="updateFormAdjust('x', this.value)" class="w-full accent-amber-500" />
+              </div>
+              <div>
+                <div class="flex items-center justify-between text-[11px] font-semibold text-slate-700"><span>Geser Atas &#8597; Bawah</span><span id="pf-adj-y-val">0</span></div>
+                <input type="range" id="pf-adj-y" min="-50" max="50" step="1" value="0" oninput="updateFormAdjust('y', this.value)" class="w-full accent-amber-500" />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div>
@@ -1494,6 +1520,8 @@
       selectedDetailSize: null,
       selectedDetailQty: 1,
       formImages: [],
+      formImageAdjust: [],
+      formAdjustIndex: 0,
       settings: {
         waNumber: '6282114710891',
         waNumber2: '6281289217188',
@@ -1539,6 +1567,23 @@
 
     const MAX_PRODUCT_IMAGES = 8;
 
+    // Pengaturan posisi foto (manual): z = zoom %, x/y = geser % dari lebar/tinggi kotak foto
+    function normalizeImageAdjust(a) {
+      const num = (v, def) => { if (v === null || v === undefined || v === '') return def; const n = Number(v); return Number.isFinite(n) ? n : def; };
+      const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+      return {
+        z: clamp(Math.round(num(a && a.z, 100)), 50, 250),
+        x: clamp(Math.round(num(a && a.x, 0)), -50, 50),
+        y: clamp(Math.round(num(a && a.y, 0)), -50, 50)
+      };
+    }
+
+    function imageAdjustStyle(a) {
+      const adj = normalizeImageAdjust(a);
+      if (adj.z === 100 && adj.x === 0 && adj.y === 0) return '';
+      return `transform: translate(${adj.x}%, ${adj.y}%) scale(${adj.z / 100}); transform-origin: center center;`;
+    }
+
     function getProductImages(product) {
       if (!product) return [];
       if (Array.isArray(product.images) && product.images.length > 0) {
@@ -1556,7 +1601,8 @@
       return {
         ...product,
         images: imgs,
-        image: imgs[0] || ''
+        image: imgs[0] || '',
+        imageAdjust: imgs.map((_, i) => normalizeImageAdjust(Array.isArray(product.imageAdjust) ? product.imageAdjust[i] : null))
       };
     }
 
@@ -2425,7 +2471,8 @@
         <img
           src="${activeUrl}"
           alt="${product.name} - Foto ${state.selectedDetailImageIndex + 1}"
-          class="w-full h-full object-cover transition-all duration-200"
+          class="w-full h-full object-contain object-center transition-all duration-200"
+          style="${imageAdjustStyle(Array.isArray(product.imageAdjust) ? product.imageAdjust[state.selectedDetailImageIndex] : null)}"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
         <div style="display:none;" class="w-full h-full items-center justify-center p-3">${generateShoeSVG(product)}</div>
@@ -3006,6 +3053,7 @@
         document.getElementById('pf-price').value = Number(product.price) || 0;
         document.getElementById('pf-description').value = product.description || '';
         state.formImages = [...getProductImages(product)];
+        state.formImageAdjust = state.formImages.map((_, i) => normalizeImageAdjust(Array.isArray(product.imageAdjust) ? product.imageAdjust[i] : null));
       } else {
         const nextNum = state.products.length + 1;
         const suggestedSku = `NMR-${String(nextNum).padStart(3, '0')}`;
@@ -3020,7 +3068,9 @@
         document.getElementById('pf-price').value = 0;
         document.getElementById('pf-description').value = '';
         state.formImages = [];
+        state.formImageAdjust = [];
       }
+      state.formAdjustIndex = 0;
 
       renderProductFormGallery();
       document.getElementById('product-form-modal').classList.remove('hidden');
@@ -3035,9 +3085,16 @@
       const countBadge = document.getElementById('pf-photo-count-badge');
       const count = state.formImages.length;
 
+      if (!Array.isArray(state.formImageAdjust)) state.formImageAdjust = [];
+      while (state.formImageAdjust.length < count) state.formImageAdjust.push(normalizeImageAdjust(null));
+      state.formImageAdjust.length = count;
+      if (!(state.formAdjustIndex >= 0 && state.formAdjustIndex < count)) state.formAdjustIndex = 0;
+
       if (countBadge) {
         countBadge.textContent = `${count} / ${MAX_PRODUCT_IMAGES} Foto`;
       }
+
+      renderFormAdjustPanel();
 
       if (count === 0) {
         grid.innerHTML = `
@@ -3051,9 +3108,10 @@
 
       grid.innerHTML = state.formImages.map((url, idx) => {
         const isCover = idx === 0;
+        const isAdjusting = idx === state.formAdjustIndex;
         return `
-          <div class="relative group rounded-xl bg-white border-2 ${isCover ? 'border-amber-500' : 'border-slate-200'} p-1.5 shadow-2xs flex flex-col gap-1">
-            <div class="aspect-square rounded-lg bg-slate-50 overflow-hidden flex items-center justify-center">
+          <div class="relative group rounded-xl bg-white border-2 ${isCover ? 'border-amber-500' : 'border-slate-200'} ${isAdjusting ? 'ring-2 ring-charcoal-900' : ''} p-1.5 shadow-2xs flex flex-col gap-1">
+            <div onclick="selectFormAdjust(${idx})" title="Klik untuk atur posisi foto ini" class="aspect-square rounded-lg bg-slate-50 overflow-hidden flex items-center justify-center cursor-pointer">
               <img src="${url}" alt="Foto ${idx + 1}" class="w-full h-full object-contain" />
             </div>
             <div class="flex items-center justify-between gap-1">
@@ -3075,20 +3133,76 @@
       }).join('');
     }
 
+    function selectFormAdjust(idx) {
+      if (idx < 0 || idx >= state.formImages.length) return;
+      state.formAdjustIndex = idx;
+      renderProductFormGallery();
+    }
+
+    function renderFormAdjustPanel() {
+      const panel = document.getElementById('pf-adjust-panel');
+      if (!panel) return;
+      const idx = state.formAdjustIndex;
+      if (state.formImages.length === 0) {
+        panel.classList.add('hidden');
+        return;
+      }
+      panel.classList.remove('hidden');
+      const adj = normalizeImageAdjust(state.formImageAdjust[idx]);
+      document.getElementById('pf-adjust-label').textContent = idx + 1;
+      document.getElementById('pf-adjust-preview').src = state.formImages[idx];
+      document.getElementById('pf-adj-z').value = adj.z;
+      document.getElementById('pf-adj-x').value = adj.x;
+      document.getElementById('pf-adj-y').value = adj.y;
+      refreshFormAdjustPreview();
+    }
+
+    function refreshFormAdjustPreview() {
+      const adj = normalizeImageAdjust(state.formImageAdjust[state.formAdjustIndex]);
+      const prev = document.getElementById('pf-adjust-preview');
+      if (prev) prev.style.cssText = imageAdjustStyle(adj);
+      document.getElementById('pf-adj-z-val').textContent = adj.z + '%';
+      document.getElementById('pf-adj-x-val').textContent = adj.x;
+      document.getElementById('pf-adj-y-val').textContent = adj.y;
+    }
+
+    function updateFormAdjust(key, value) {
+      const idx = state.formAdjustIndex;
+      if (idx < 0 || idx >= state.formImages.length) return;
+      const cur = normalizeImageAdjust(state.formImageAdjust[idx]);
+      cur[key] = Number(value);
+      state.formImageAdjust[idx] = normalizeImageAdjust(cur);
+      refreshFormAdjustPreview();
+    }
+
+    function resetFormAdjust() {
+      const idx = state.formAdjustIndex;
+      if (idx < 0 || idx >= state.formImages.length) return;
+      state.formImageAdjust[idx] = normalizeImageAdjust(null);
+      renderFormAdjustPanel();
+    }
+
     function setPrimaryProductFormImage(idx) {
       if (idx <= 0 || idx >= state.formImages.length) return;
       const [chosen] = state.formImages.splice(idx, 1);
       state.formImages.unshift(chosen);
+      const [chosenAdj] = state.formImageAdjust.splice(idx, 1);
+      state.formImageAdjust.unshift(chosenAdj || normalizeImageAdjust(null));
+      state.formAdjustIndex = 0;
       renderProductFormGallery();
     }
 
     function removeProductFormImage(idx) {
       state.formImages.splice(idx, 1);
+      state.formImageAdjust.splice(idx, 1);
+      if (state.formAdjustIndex >= state.formImages.length) state.formAdjustIndex = 0;
       renderProductFormGallery();
     }
 
     function clearProductFormImages() {
       state.formImages = [];
+      state.formImageAdjust = [];
+      state.formAdjustIndex = 0;
       const fileInput = document.getElementById('pf-image-files');
       if (fileInput) fileInput.value = '';
       renderProductFormGallery();
@@ -3106,6 +3220,7 @@
         return;
       }
       state.formImages.push(url);
+      state.formImageAdjust.push(normalizeImageAdjust(null));
       urlInput.value = '';
       renderProductFormGallery();
       showToast('URL foto ditambahkan ke galeri produk.', 'success');
@@ -3127,6 +3242,7 @@
         try {
           const compressedDataUrl = await compressImageFile(file, 720, 0.76);
           state.formImages.push(compressedDataUrl);
+          state.formImageAdjust.push(normalizeImageAdjust(null));
         } catch (err) {
           console.error('Gagal memproses file foto:', err);
           showToast(`Gagal memuat file ${file.name}.`, 'error');
@@ -3184,6 +3300,7 @@
       const price = Math.max(0, parseInt(document.getElementById('pf-price').value, 10) || 0);
       const description = document.getElementById('pf-description').value.trim();
       const images = [...state.formImages];
+      const imageAdjust = images.map((_, i) => normalizeImageAdjust(state.formImageAdjust[i]));
 
       if (!sku || !name || !color) {
         showToast('Kode SKU, Nama Model, dan Varian Warna wajib diisi.', 'error');
@@ -3207,6 +3324,7 @@
         price,
         images,
         image: images[0] || '',
+        imageAdjust,
         description: description || `Sepatu ${name} varian warna ${color} (${category}) dari EULOGIA FOOTWEAR.`
       });
 
