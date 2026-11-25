@@ -81,8 +81,7 @@
     .animate-fade-up {
       animation: fadeSlideUp 0.25s ease-out forwards;
     }
-      html, body { max-width: 100%; overflow-x: clip; }
-    .hero-grad { background: #e7e7e3; }
+      .hero-grad { background: #e7e7e3; }
     @media (min-width: 1024px) { .hero-grad { background: linear-gradient(180deg, #b1b1ac 0%, #bdbcb8 20%, #c2c1bd 40%, #c6c6c1 60%, #cbcbc6 80%, #dfdfdc 100%); } }
     .hero-mask { -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 86%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0, #000 86%, transparent 100%); }
     @media (min-width: 1024px) { .hero-mask { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14%); mask-image: linear-gradient(to right, transparent 0, #000 14%); } }
@@ -94,24 +93,24 @@
   <div class="bg-black text-white text-[11px] sm:text-xs text-center py-2 px-3">Stok ready &nbsp;|&nbsp; Tukar size maks. 3 hari &nbsp;|&nbsp; Pesan lewat WhatsApp</div>
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 gap-2 sm:gap-3">
-        <a href="#" onclick="resetAllFilters(); return false;" class="font-display font-extrabold text-lg sm:text-xl tracking-tight min-w-0 whitespace-nowrap">EULOGIA<span class="ml-1 sm:ml-1.5 text-[9px] sm:text-[11px] font-bold tracking-[.12em] sm:tracking-[.16em] text-[#b8915a]">FOOTWEAR</span></a>
+      <div class="flex items-center justify-between h-16 gap-3">
+        <a href="#" onclick="resetAllFilters(); return false;" class="font-display font-extrabold text-xl tracking-tight shrink-0">EULOGIA<span class="ml-1.5 text-[11px] font-bold tracking-[.16em] text-[#b8915a]">FOOTWEAR</span></a>
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium h-full">
           <a href="#" onclick="resetAllFilters(); return false;" class="h-full flex items-center border-b-2 border-black">Beranda</a>
           <a href="#katalog" onclick="quickSet({cat:'PRIA'}); return false;" class="hover:text-[#b8915a]">Pria</a>
           <a href="#katalog" onclick="quickSet({cat:'WANITA'}); return false;" class="hover:text-[#b8915a]">Wanita</a>
           <button type="button" onclick="openTermsModal('cara-pesan')" class="hover:text-[#b8915a]">Aturan Order</button>
         </nav>
-        <div class="flex items-center gap-1 sm:gap-2 shrink-0">
-          <a href="#katalog" onclick="setTimeout(function(){document.getElementById('search-input').focus()},300)" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full hover:bg-slate-100 flex items-center justify-center max-[359px]:hidden" aria-label="Cari sepatu"><i class="fa-solid fa-magnifying-glass"></i></a>
-          <button type="button" onclick="openTermsModal('cara-pesan')" class="hidden sm:flex md:hidden w-10 h-10 rounded-full hover:bg-slate-100 items-center justify-center" aria-label="Syarat dan Ketentuan"><i class="fa-solid fa-file-shield"></i></button>
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <a href="#katalog" onclick="setTimeout(function(){document.getElementById('search-input').focus()},300)" class="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center" aria-label="Cari sepatu"><i class="fa-solid fa-magnifying-glass"></i></a>
+          <button type="button" onclick="openTermsModal('cara-pesan')" class="md:hidden w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center" aria-label="Syarat dan Ketentuan"><i class="fa-solid fa-file-shield"></i></button>
           <a id="header-tiktok-link" href="https://www.tiktok.com/@eulogiashoes" target="_blank" rel="noopener noreferrer" class="hidden lg:flex w-10 h-10 rounded-full hover:bg-slate-100 items-center justify-center" title="TikTok EULOGIA FOOTWEAR"><i class="fa-brands fa-tiktok"></i></a>
           <a id="header-shopee-link" href="https://shopee.co.id/eulogiashoes" target="_blank" rel="noopener noreferrer" class="hidden lg:flex w-10 h-10 rounded-full hover:bg-slate-100 items-center justify-center" title="Shopee EULOGIA FOOTWEAR"><i class="fa-solid fa-bag-shopping"></i></a>
           <div class="relative" id="header-wa-dropdown-wrapper">
-            <button type="button" onclick="toggleHeaderWaMenu(event)" class="inline-flex items-center gap-1.5 h-9 sm:h-10 px-2.5 sm:px-3 rounded-full border border-slate-200 hover:border-black text-sm font-semibold transition-colors" title="Pilih CS WhatsApp EULOGIA FOOTWEAR">
+            <button type="button" onclick="toggleHeaderWaMenu(event)" class="inline-flex items-center gap-1.5 h-10 px-3 rounded-full border border-slate-200 hover:border-black text-sm font-semibold transition-colors" title="Pilih CS WhatsApp EULOGIA FOOTWEAR">
               <i class="fa-brands fa-whatsapp text-base text-emerald-600"></i>
               <span class="hidden md:inline">CS WhatsApp</span>
-              <i class="fa-solid fa-chevron-down text-[10px] opacity-70 hidden sm:inline"></i>
+              <i class="fa-solid fa-chevron-down text-[10px] opacity-70"></i>
             </button>
             <div id="header-wa-menu" class="hidden absolute right-0 mt-2 w-60 rounded-2xl bg-white border border-slate-200 shadow-2xl p-2 space-y-1 z-50">
               <p class="px-2.5 py-1 text-xs font-bold text-slate-500">Hubungi Admin CS</p>
@@ -131,7 +130,7 @@
               </a>
             </div>
           </div>
-          <button type="button" onclick="toggleCartDrawer(true)" class="relative inline-flex items-center gap-1.5 sm:gap-2 h-9 sm:h-10 px-2.5 sm:px-3.5 rounded-full bg-black hover:bg-slate-800 text-white text-sm font-semibold transition-colors active:scale-95" aria-label="Buka Keranjang Belanja">
+          <button type="button" onclick="toggleCartDrawer(true)" class="relative inline-flex items-center gap-2 h-10 px-3.5 rounded-full bg-black hover:bg-slate-800 text-white text-sm font-semibold transition-colors active:scale-95" aria-label="Buka Keranjang Belanja">
             <i class="fa-solid fa-cart-shopping"></i>
             <span class="hidden sm:inline">Keranjang</span>
             <span id="cart-badge" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-[#b8915a] text-white text-[11px] font-extrabold">0</span>
@@ -741,7 +740,7 @@
   <!-- ==================== MODAL 2: PRODUCT DETAIL MODAL ==================== -->
   <div id="detail-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-charcoal-950/75 backdrop-blur-sm p-3 sm:p-6 flex items-center justify-center">
     <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-up">
-      <div class="relative bg-slate-100 p-4 sm:p-6 flex flex-col items-center justify-center border-b border-slate-200 gap-3">
+      <div class="relative bg-white p-4 sm:p-6 flex flex-col items-center justify-center border-b border-slate-200 gap-3">
         <!-- Photo Counter Pill (Visible when > 1 photo) -->
         <span
           id="detail-photo-counter"
@@ -759,7 +758,7 @@
         </button>
 
         <!-- Image / SVG Preview Container with Prev/Next Navigation -->
-        <div class="relative w-full max-w-sm flex items-center justify-center">
+        <div class="relative w-full max-w-sm sm:max-w-none flex items-center justify-center">
           <button
             type="button"
             id="detail-prev-img-btn"
@@ -772,7 +771,7 @@
 
           <div
             id="detail-visual"
-            class="w-full aspect-[4/3] rounded-xl bg-white shadow-inner border border-slate-200/80 flex items-center justify-center overflow-hidden select-none"
+            class="w-full aspect-[4/3] sm:max-h-[max(300px,calc(100vh-540px))] rounded-xl bg-white flex items-center justify-center overflow-hidden select-none"
           >
             <!-- Populated dynamically -->
           </div>
